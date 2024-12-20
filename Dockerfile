@@ -8,8 +8,8 @@ WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
 
-RUN yarn config set registry 'https://registry.npmmirror.com/'
-RUN yarn install
+RUN pnpm config set registry 'https://registry.npmmirror.com/'
+RUN pnpm install
 
 FROM base AS builder
 
@@ -23,7 +23,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-RUN yarn build
+RUN pnpm build
 
 FROM base AS runner
 WORKDIR /app
