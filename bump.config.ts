@@ -6,5 +6,5 @@ export default defineConfig({
   ],
   all: true,
   recursive: true,
-  execute: 'node scripts/release.js',
+  execute: 'node scripts/release.mjs',
 });
