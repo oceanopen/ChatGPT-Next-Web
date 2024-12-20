@@ -24,7 +24,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-RUN npm run build
+RUN npm config set registry 'https://registry.npmmirror.com/'
+RUN npm install -g pnpm@8
+RUN pnpm build
 
 FROM base AS runner
 WORKDIR /app
