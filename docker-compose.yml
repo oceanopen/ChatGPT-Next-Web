@@ -3,10 +3,11 @@ services:
   chatgpt-next-web:
     profiles: [ "no-proxy" ]
     container_name: chatgpt-next-web
-    image: yidadaa/chatgpt-next-web
+    image: oceanopen/chatgpt-next-web
     ports:
       - 3000:3000
     environment:
+      - HOSTNAME=0.0.0.0
       - OPENAI_API_KEY=$OPENAI_API_KEY
       - GOOGLE_API_KEY=$GOOGLE_API_KEY
       - CODE=$CODE
@@ -21,10 +22,11 @@ services:
   chatgpt-next-web-proxy:
     profiles: [ "proxy" ]
     container_name: chatgpt-next-web-proxy
-    image: yidadaa/chatgpt-next-web
+    image: oceanopen/chatgpt-next-web
     ports:
       - 3000:3000
     environment:
+      - HOSTNAME=0.0.0.0
       - OPENAI_API_KEY=$OPENAI_API_KEY
       - GOOGLE_API_KEY=$GOOGLE_API_KEY
       - CODE=$CODE

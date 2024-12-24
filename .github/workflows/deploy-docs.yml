@@ -1,0 +1,72 @@
+# https://docs.github.com/actions
+name: Deploy Docs
+
+on:
+    # 支持手动触发流水线
+    workflow_dispatch:
+    push:
+        branches:
+            - main
+        paths:
+            - packages/docs/**/**
+            - package.json
+            - .github/workflows/deploy-docs.yml
+
+jobs:
+    run:
+        name: Docs Build & Deploy
+        runs-on: ubuntu-latest
+
+        env:
+            # 配置: https://github.com/oceanopen/we_share_codes/settings/secrets/actions
+            remote_host: ${{ secrets.CVM_IP }}
+            remote_user: ${{ secrets.CVM_USER_NAME }}
+            remote_ssh_key: ${{ secrets.CVM_PRIVATE_KEY }}
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4 # https://github.com/marketplace/actions/checkout
+
+            - name: Setup Node
+              uses: actions/setup-node@v4 # https://github.com/marketplace/actions/setup-node-js-environment
+              with:
+                  node-version: 20
+
+            - name: Cache node_modules
+              id: cache-node-modules
+              uses: actions/cache@v4
+              env:
+                  cache-name: cache-node-modules
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-build-${{ env.cache-name }}-
+
+            # 'true' - 代表缓存命中, node_modules 没有变化;
+            # '' - 代表没有命中, node_modules 发生变化;
+            - name: Debug Cache Hit
+              run: echo "cache-node-modules:${{ steps.cache-node-modules.outputs.cache-hit }}"
+
+            - name: Install pnpm
+              run: npm install -g pnpm
+
+            # This project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+            - name: Install dependencies and Build 🔧
+              run: pnpm bootstrap && pnpm docs:build:prod
+
+            - name: Deploy to Server
+              uses: easingthemes/ssh-deploy@main # https://github.com/marketplace/actions/ssh-deploy
+              if: env.remote_host && env.remote_user && env.remote_ssh_key
+              with:
+                  # 服务器域名
+                  REMOTE_HOST: ${{ secrets.CVM_IP }}
+                  # 腾讯云默认用户名为 root
+                  REMOTE_USER: ${{ secrets.CVM_USER_NAME }}
+                  # 本地 .ssh 文件下的私钥 id_rsa，存在 secrets 的 TOKEN 中
+                  SSH_PRIVATE_KEY: ${{ secrets.CVM_PRIVATE_KEY }}
+                  # 复制操作的参数。"-avzr --delete" 意味部署时清空服务器目标目录下的文件
+                  # 源目录，相对于 $GITHUB_WORKSPACE 根目录的路径
+                  SOURCE: packages/docs/dist/
+                  # 目标目录
+                  TARGET: /data/web/${{ github.event.repository.name }}/docs
