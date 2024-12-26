@@ -6,7 +6,7 @@
 
 </div>
 
-## docker 部署
+## 1. Docker 部署
 
 ```bash
 # 命令行登录 docker
@@ -23,3 +23,8 @@ docker ps -a
 # CONTAINER ID   IMAGE                        COMMAND                   CREATED          STATUS                      PORTS     NAMES
 # bb700e60dc00   oceanopen/chatgpt-next-web   "docker-entrypoint.s…"   12 minutes ago   Exited (0) 48 seconds ago             chatgpt-next-web
 ```
+
+## 2. OpenApi 代理
+
+- https://bewildcard.com/api
+- https://2233.ai/api
