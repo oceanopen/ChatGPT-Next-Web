@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { Path, SlotID } from "../constant";
+import { RefObject, useEffect, useRef, useState } from "react";
+import { Path } from "../constant";
 import { IconButton } from "./button";
 import { EmojiAvatar } from "./emoji";
 import styles from "./new-chat.module.scss";
@@ -32,34 +32,35 @@ function MaskItem(props: { mask: Mask; onClick?: () => void }) {
   );
 }
 
-function useMaskGroup(masks: Mask[]) {
+function useMaskGroup(masks: Mask[], maskRef: RefObject<HTMLDivElement>) {
   const [groups, setGroups] = useState<Mask[][]>([]);
 
   useEffect(() => {
     const computeGroup = () => {
-      const appBody = document.getElementById(SlotID.AppBody);
-      if (!appBody || masks.length === 0) return;
+      if (!maskRef.current || masks.length === 0) return;
 
-      const rect = appBody.getBoundingClientRect();
-      const maxWidth = rect.width;
+      const rect = maskRef.current.getBoundingClientRect();
+      const maxWidth = rect.width * 0.5;
       const maxHeight = rect.height * 0.6;
       const maskItemWidth = 120;
       const maskItemHeight = 50;
 
-      const randomMask = () => masks[Math.floor(Math.random() * masks.length)];
       let maskIndex = 0;
       const nextMask = () => masks[maskIndex++ % masks.length];
 
-      const rows = Math.ceil(maxHeight / maskItemHeight);
       const cols = Math.ceil(maxWidth / maskItemWidth);
 
-      const newGroups = new Array(rows)
-        .fill(0)
-        .map((_, _i) =>
-          new Array(cols)
-            .fill(0)
-            .map((_, j) => (j < 1 || j > cols - 2 ? randomMask() : nextMask())),
-        );
+      const maxRows = Math.ceil(maxHeight / maskItemHeight);
+      const maskRows = Math.ceil(masks.length / cols);
+      const rows = Math.min(maxRows, maskRows);
+
+      const newGroups = new Array(rows).fill(0).map((_, _row) => {
+        const left = (_row + 1) * cols - masks.length;
+        const count = left > 0 ? masks.length - _row * cols : cols;
+        return new Array(count).fill(0).map((_, _col) => {
+          return nextMask();
+        });
+      });
 
       setGroups(newGroups);
     };
@@ -78,13 +79,13 @@ export function NewChat() {
   const chatStore = useChatStore();
   const maskStore = useMaskStore();
 
+  const maskRef = useRef<HTMLDivElement>(null);
+
   const masks = maskStore.getAll();
-  const groups = useMaskGroup(masks);
+  const groups = useMaskGroup(masks, maskRef);
 
   const navigate = useNavigate();
   const config = useAppConfig();
-
-  const maskRef = useRef<HTMLDivElement>(null);
 
   const { state } = useLocation();
 
