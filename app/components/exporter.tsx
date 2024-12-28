@@ -22,7 +22,6 @@ import {
 import CopyIcon from "../icons/copy.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 import ChatGptIcon from "../icons/chatgpt.png";
-import ShareIcon from "../icons/share.svg";
 import BotIcon from "../icons/bot.png";
 
 import DownloadIcon from "../icons/download.svg";
@@ -308,7 +307,7 @@ export function PreviewActions(props: {
   showCopy?: boolean;
   messages?: ChatMessage[];
 }) {
-  const [loading, setLoading] = useState(false);
+  const [setLoading] = useState(false);
   const [shouldExport, setShouldExport] = useState(false);
   const config = useAppConfig();
   const onRenderMsgs = (msgs: ChatMessage[]) => {
@@ -351,15 +350,7 @@ export function PreviewActions(props: {
       .catch((e) => {
         console.error("[Share]", e);
         showToast(prettyObject(e));
-      })
-      .finally(() => setLoading(false));
-  };
-
-  const share = async () => {
-    if (props.messages?.length) {
-      setLoading(true);
-      setShouldExport(true);
-    }
+      });
   };
 
   return (
@@ -380,13 +371,6 @@ export function PreviewActions(props: {
           shadow
           icon={<DownloadIcon />}
           onClick={props.download}
-        ></IconButton>
-        <IconButton
-          text={Locale.Export.Share}
-          bordered
-          shadow
-          icon={loading ? <LoadingIcon /> : <ShareIcon />}
-          onClick={share}
         ></IconButton>
       </div>
       <div
