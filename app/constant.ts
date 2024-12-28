@@ -1,7 +1,12 @@
-export const OWNER = "ChatGPTNextWeb";
+/**
+ * from: https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web
+ * to:   https://github.com/oceanopen/ChatGPT-Next-Web
+ */
+
+export const OWNER = "oceanopen";
 export const REPO = "ChatGPT-Next-Web";
 export const REPO_URL = `https://github.com/${OWNER}/${REPO}`;
-export const PLUGINS_REPO_URL = `https://github.com/${OWNER}/NextChat-Awesome-Plugins`;
+export const PLUGINS_REPO_URL = `https://github.com/ChatGPTNextWeb/NextChat-Awesome-Plugins`;
 export const ISSUE_URL = `https://github.com/${OWNER}/${REPO}/issues`;
 export const UPDATE_URL = `${REPO_URL}#keep-updated`;
 export const RELEASE_URL = `${REPO_URL}/releases`;
@@ -99,7 +104,7 @@ export const ACCESS_CODE_PREFIX = "nk-";
 export const LAST_INPUT_KEY = "last-input";
 export const UNFINISHED_INPUT = (id: string) => "unfinished-input-" + id;
 
-export const STORAGE_KEY = "chatgpt-next-web";
+export const STORAGE_KEY = "oceanopen-chatgpt-next-web";
 
 export const REQUEST_TIMEOUT_MS = 60000;
 
