@@ -1,8 +1,8 @@
 <div align="center">
 
-<h1 align="center">NextChat</h1>
+<h1 align="center">OceanAIChat</h1>
 
-一键免费部署你的私人 ChatGPT 网页应用，支持 GPT3, GPT4 & Gemini Pro 模型。
+基于 NextChatGPT 私有部署项目，支持 GPT3, GPT4 & Gemini Pro 模型。
 
 </div>
 
