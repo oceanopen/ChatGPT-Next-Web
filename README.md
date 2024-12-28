@@ -28,3 +28,7 @@ docker ps -a
 
 - https://bewildcard.com/api
 - https://2233.ai/api
+
+## 3. 相关链接
+
+- [Github ChatGPT-Next-Web](https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web)
