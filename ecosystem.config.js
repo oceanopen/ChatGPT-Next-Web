@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: "ChatGPT-Next-Web",
-      script: "./dist/server.js",
+      script: "./dist/standalone/server.js",
       instances: 2,
       exec_mode: "cluster",
       env: {
@@ -12,7 +12,6 @@ module.exports = {
       error: "./logs/app_error.log",
       log: "./logs/app.log",
       merge_logs: true,
-      watch: false,
       time: true,
     },
   ],
