@@ -4,15 +4,18 @@
   "private": true,
   "license": "mit",
   "scripts": {
+    "prepare": "husky install",
     "mask": "npx tsx app/masks/build.ts",
     "mask:watch": "npx watch \"yarn mask\" app/masks",
     "dev": "concurrently -r \"yarn run mask:watch\" \"next dev\"",
-    "build": "yarn mask && cross-env BUILD_MODE=standalone next build",
-    "start": "next start",
+    "proxy-dev": "sh ./scripts/init-proxy.sh && proxychains -f ./scripts/proxychains.conf yarn dev",
+    "build:next": "yarn mask && cross-env BUILD_MODE=standalone next build",
+    "preview": "next start",
+    "build:dist": "rm -rf ./dist && mkdir -p ./dist/.next/static && mkdir -p ./dist/.next/server && cp -r ./public ./dist/ && cp -r .next/standalone/ ./dist/ && cp -r .next/static ./dist/.next/ && cp -r .next/server ./dist/.next/ && cp ecosystem.config.js ./dist/",
+    "build:start": "node dist/server.js",
+    "start": "pm2 delete ecosystem.config.js && pm2 start ecosystem.config.js",
     "lint": "next lint",
-    "prompts": "node ./scripts/fetch-prompts.mjs",
-    "prepare": "husky install",
-    "proxy-dev": "sh ./scripts/init-proxy.sh && proxychains -f ./scripts/proxychains.conf yarn dev"
+    "prompts": "node ./scripts/fetch-prompts.mjs"
   },
   "dependencies": {
     "@fortaine/fetch-event-source": "^3.0.6",
