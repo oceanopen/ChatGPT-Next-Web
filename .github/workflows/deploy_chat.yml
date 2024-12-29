@@ -85,8 +85,6 @@ jobs:
             cd /data/web/${{ github.event.repository.name }}/
             cp -f .env ./dist/
             cp ./dist/ecosystem.config.js ./
-            git --version
-            node --version
-            pm2 --version
-            pm2 delete ecosystem.config.js
-            pm2 start ecosystem.config.js
+            cp ./dist/restart.sh ./
+            chmod +x ./dist/restart.sh
+            sh ./dist/restart.sh
