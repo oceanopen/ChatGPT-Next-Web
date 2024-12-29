@@ -32,6 +32,10 @@ pm2 install pm2-logrotate
 # 查看配置
 pm2 conf pm2-logratate
 
+# 以前旧版本的 pm2-logrotate 想要停止，就只能卸载服务 pm2 uninstall pm2-logrotate。
+# 现在新版本的可以使用 pm2 stop 进程 id。使用 pm2 list 查看到 pm2-logrotate 进程 id 为 2，执行 pm2 stop 2 即可停止服务。
+# 重新启动，同样可执行 pm2 start 2 即可重启服务。
+
 # pm2 管理服务
 # pm2 [start|restart|stop|delete] ecosystem.config.js
 pm2 start ecosystem.config.js
