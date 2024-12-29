@@ -7,6 +7,7 @@ module.exports = {
       exec_mode: "cluster",
       env: {
         NODE_ENV: "production",
+        HOSTNAME: "0.0.0.0",
       },
       output: "./logs/app_output.log",
       error: "./logs/app_error.log",
