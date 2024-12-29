@@ -3,7 +3,6 @@ import { showToast } from "./components/ui-lib";
 import Locale from "./locales";
 import { RequestMessage } from "./client/api";
 import { ServiceProvider } from "./constant";
-// import { fetch as tauriFetch, ResponseType } from "@tauri-apps/api/http";
 import { VISION_MODEL_REGEXES, EXCLUDE_VISION_MODEL_REGEXES } from "./constant";
 import { getClientConfig } from "./config/client";
 

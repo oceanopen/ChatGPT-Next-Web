@@ -30,3 +30,4 @@ docker ps -a
 - [ChatGPT API Proxy](https://2233.ai/api)
 - [Github ChatGPT-Next-Web](https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web)
 - [GitHub Proxy](https://ghgo.xyz/)
+- [Nvm Install](https://github.com/nvm-sh/nvm)

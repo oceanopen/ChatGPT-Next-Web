@@ -10,4 +10,6 @@ declare module "*.scss" {
 
 declare module "*.svg";
 
-declare interface Window {}
+declare interface Window {
+  _SW_ENABLED: boolean;
+}

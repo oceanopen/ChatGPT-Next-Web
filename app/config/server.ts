@@ -1,5 +1,5 @@
 import md5 from "spark-md5";
-import { DEFAULT_MODELS, DEFAULT_GA_ID } from "../constant";
+import { DEFAULT_MODELS } from "../constant";
 
 declare global {
   namespace NodeJS {
@@ -12,7 +12,6 @@ declare global {
       BASE_URL?: string;
       OPENAI_ORG_ID?: string; // openai only
 
-      VERCEL?: string;
       BUILD_MODE?: "standalone" | "export";
 
       HIDE_USER_API_KEY?: string; // disable user's api key input
@@ -34,9 +33,6 @@ declare global {
       // google only
       GOOGLE_API_KEY?: string;
       GOOGLE_URL?: string;
-
-      // google tag manager
-      GTM_ID?: string;
 
       // anthropic only
       ANTHROPIC_URL?: string;
@@ -233,15 +229,11 @@ export const getServerSideConfig = () => {
     cloudflareKVApiKey: getApiKey(process.env.CLOUDFLARE_KV_API_KEY),
     cloudflareKVTTL: process.env.CLOUDFLARE_KV_TTL,
 
-    gtmId: process.env.GTM_ID,
-    gaId: process.env.GA_ID || DEFAULT_GA_ID,
-
     needCode: ACCESS_CODES.size > 0,
     code: process.env.CODE,
     codes: ACCESS_CODES,
 
     proxyUrl: process.env.PROXY_URL,
-    isVercel: !!process.env.VERCEL,
 
     hideUserApiKey: !!process.env.HIDE_USER_API_KEY,
     disableGPT4,
