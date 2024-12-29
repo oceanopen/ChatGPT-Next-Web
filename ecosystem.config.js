@@ -12,7 +12,6 @@ module.exports = {
       error: "./logs/app_error.log",
       log: "./logs/app.log",
       merge_logs: true,
-      watch: true,
       time: true,
     },
   ],
