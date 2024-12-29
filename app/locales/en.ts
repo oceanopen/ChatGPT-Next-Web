@@ -1,18 +1,12 @@
-import { getClientConfig } from "../config/client";
 import { SubmitKey } from "../store/config";
 import { LocaleType } from "./index";
 // if you are adding a new translation, please use PartialLocaleType instead of LocaleType
 
-const isApp = !!getClientConfig()?.isApp;
 const en: LocaleType = {
   WIP: "Coming Soon...",
   Error: {
-    Unauthorized: isApp
-      ? `😆 Oops, there's an issue. No worries:
-      \\ 2️⃣ Want to use your own OpenAI resources? [Click here](/#/settings) to change settings ⚙️`
-      : `😆 Oops, there's an issue. Let's fix it:
-      \ 2️⃣ Using a private setup? [Click here](/#/auth) to enter your key 🔑
-     `,
+    Unauthorized: `😆 Oops, there's an issue. Let's fix it:
+    \ 2️⃣ Using a private setup? [Click here](/#/auth) to enter your key 🔑`,
   },
   Auth: {
     Return: "Return",

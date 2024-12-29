@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1 align="center">OceanAIChat</h1>
+<h1 align="center">Ocean AI Chat</h1>
 
 基于 NextChatGPT 私有部署项目，支持 GPT3, GPT4 & Gemini Pro 模型。
 

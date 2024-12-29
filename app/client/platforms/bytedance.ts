@@ -1,10 +1,5 @@
 "use client";
-import {
-  ApiPath,
-  ByteDance,
-  BYTEDANCE_BASE_URL,
-  REQUEST_TIMEOUT_MS,
-} from "@/app/constant";
+import { ApiPath, ByteDance, REQUEST_TIMEOUT_MS } from "@/app/constant";
 import { useAccessStore, useAppConfig, useChatStore } from "@/app/store";
 
 import {
@@ -21,7 +16,6 @@ import {
   fetchEventSource,
 } from "@fortaine/fetch-event-source";
 import { prettyObject } from "@/app/utils/format";
-import { getClientConfig } from "@/app/config/client";
 import { getMessageTextContent } from "@/app/utils";
 import { fetch } from "@/app/utils/stream";
 
@@ -59,8 +53,7 @@ export class DoubaoApi implements LLMApi {
     }
 
     if (baseUrl.length === 0) {
-      const isApp = !!getClientConfig()?.isApp;
-      baseUrl = isApp ? BYTEDANCE_BASE_URL : ApiPath.ByteDance;
+      baseUrl = ApiPath.ByteDance;
     }
 
     if (baseUrl.endsWith("/")) {

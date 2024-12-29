@@ -47,7 +47,7 @@ import Locale, {
   changeLang,
   getLang,
 } from "../locales";
-import { copyToClipboard, clientUpdate, semverCompare } from "../utils";
+import { copyToClipboard, semverCompare } from "../utils";
 import Link from "next/link";
 import {
   Anthropic,
@@ -62,7 +62,6 @@ import {
   GoogleSafetySettingsThreshold,
   OPENAI_BASE_URL,
   Path,
-  RELEASE_URL,
   STORAGE_KEY,
   ServiceProvider,
   SlotID,
@@ -586,7 +585,7 @@ export function Settings() {
   const currentVersion = updateStore.formatVersion(updateStore.version);
   const remoteId = updateStore.formatVersion(updateStore.remoteVersion);
   const hasNewVersion = semverCompare(currentVersion, remoteId) === -1;
-  const updateUrl = getClientConfig()?.isApp ? RELEASE_URL : UPDATE_URL;
+  const updateUrl = UPDATE_URL;
 
   function checkUpdate(force = false) {
     setCheckingUpdate(true);
@@ -654,12 +653,7 @@ export function Settings() {
         navigate(Path.Home);
       }
     };
-    if (clientConfig?.isApp) {
-      // Force to set custom endpoint to true if it's app
-      accessStore.update((state) => {
-        state.useCustomConfig = true;
-      });
-    }
+
     document.addEventListener("keydown", keydownEvent);
     return () => {
       document.removeEventListener("keydown", keydownEvent);
@@ -668,7 +662,7 @@ export function Settings() {
   }, []);
 
   const clientConfig = useMemo(() => getClientConfig(), []);
-  const showAccessCode = enabledAccessControl && !clientConfig?.isApp;
+  const showAccessCode = enabledAccessControl;
 
   const accessCodeComponent = showAccessCode && (
     <ListItem
@@ -688,24 +682,25 @@ export function Settings() {
     </ListItem>
   );
 
-  const useCustomConfigComponent = // Conditionally render the following ListItem based on clientConfig.isApp
-    !clientConfig?.isApp && ( // only show if isApp is false
-      <ListItem
-        title={Locale.Settings.Access.CustomEndpoint.Title}
-        subTitle={Locale.Settings.Access.CustomEndpoint.SubTitle}
-      >
-        <input
-          aria-label={Locale.Settings.Access.CustomEndpoint.Title}
-          type="checkbox"
-          checked={accessStore.useCustomConfig}
-          onChange={(e) =>
-            accessStore.update(
-              (access) => (access.useCustomConfig = e.currentTarget.checked),
-            )
-          }
-        ></input>
-      </ListItem>
-    );
+  // Conditionally render the following ListItem based on clientConfig.isApp
+  const useCustomConfigComponent = (
+    // only show if isApp is false
+    <ListItem
+      title={Locale.Settings.Access.CustomEndpoint.Title}
+      subTitle={Locale.Settings.Access.CustomEndpoint.SubTitle}
+    >
+      <input
+        aria-label={Locale.Settings.Access.CustomEndpoint.Title}
+        type="checkbox"
+        checked={accessStore.useCustomConfig}
+        onChange={(e) =>
+          accessStore.update(
+            (access) => (access.useCustomConfig = e.currentTarget.checked),
+          )
+        }
+      ></input>
+    </ListItem>
+  );
 
   const openAIConfigComponent = accessStore.provider ===
     ServiceProvider.OpenAI && (
@@ -1412,17 +1407,9 @@ export function Settings() {
             {checkingUpdate ? (
               <LoadingIcon />
             ) : hasNewVersion ? (
-              clientConfig?.isApp ? (
-                <IconButton
-                  icon={<ResetIcon></ResetIcon>}
-                  text={Locale.Settings.Update.GoToUpdate}
-                  onClick={() => clientUpdate()}
-                />
-              ) : (
-                <Link href={updateUrl} target="_blank" className="link">
-                  {Locale.Settings.Update.GoToUpdate}
-                </Link>
-              )
+              <Link href={updateUrl} target="_blank" className="link">
+                {Locale.Settings.Update.GoToUpdate}
+              </Link>
             ) : (
               <IconButton
                 icon={<ResetIcon></ResetIcon>}
@@ -1713,7 +1700,7 @@ export function Settings() {
             </>
           )}
 
-          {!shouldHideBalanceQuery && !clientConfig?.isApp ? (
+          {!shouldHideBalanceQuery ? (
             <ListItem
               title={Locale.Settings.Usage.Title}
               subTitle={

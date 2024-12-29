@@ -239,7 +239,7 @@ export function Artifacts() {
           shadow
           onClick={() => previewRef.current?.reload()}
         />
-        <div className={styles["artifacts-title"]}>OceanAIChat Artifacts</div>
+        <div className={styles["artifacts-title"]}>Ocean AI Chat Artifacts</div>
         <ArtifactsShareButton
           id={id}
           getCode={() => code}

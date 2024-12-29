@@ -181,17 +181,15 @@ export class ClientApi {
         {
           from: "human",
           value:
-            "Share from [OceanAIChat]: https://github.com/oceanopen/ChatGPT-Next-Web",
+            "Share from [Ocean AI Chat]: https://github.com/oceanopen/ChatGPT-Next-Web",
         },
       ]);
     // 敬告二开开发者们，为了开源大模型的发展，请不要修改上述消息，此消息用于后续数据清洗使用
     // Please do not modify this message
 
     console.log("[Share]", messages, msgs);
-    const clientConfig = getClientConfig();
     const proxyUrl = "/sharegpt";
-    const rawUrl = "https://sharegpt.com/api/conversations";
-    const shareUrl = clientConfig?.isApp ? rawUrl : proxyUrl;
+    const shareUrl = proxyUrl;
     const res = await fetch(shareUrl, {
       body: JSON.stringify({
         avatarUrl,
@@ -297,16 +295,8 @@ export function getHeaders(ignoreHeaders: boolean = false) {
       : "Authorization";
   }
 
-  const {
-    isGoogle,
-    isAzure,
-    isAnthropic,
-    isBaidu,
-    apiKey,
-    isEnabledAccessControl,
-  } = getConfig();
-  // when using baidu api in app, not set auth header
-  if (isBaidu && clientConfig?.isApp) return headers;
+  const { isGoogle, isAzure, isAnthropic, apiKey, isEnabledAccessControl } =
+    getConfig();
 
   const authHeader = getAuthHeader();
 

@@ -1,5 +1,5 @@
 "use client";
-import { ApiPath, TENCENT_BASE_URL, REQUEST_TIMEOUT_MS } from "@/app/constant";
+import { ApiPath, REQUEST_TIMEOUT_MS } from "@/app/constant";
 import { useAccessStore, useAppConfig, useChatStore } from "@/app/store";
 
 import {
@@ -16,7 +16,6 @@ import {
   fetchEventSource,
 } from "@fortaine/fetch-event-source";
 import { prettyObject } from "@/app/utils/format";
-import { getClientConfig } from "@/app/config/client";
 import { getMessageTextContent, isVisionModel } from "@/app/utils";
 import mapKeys from "lodash-es/mapKeys";
 import mapValues from "lodash-es/mapValues";
@@ -70,8 +69,7 @@ export class HunyuanApi implements LLMApi {
     }
 
     if (baseUrl.length === 0) {
-      const isApp = !!getClientConfig()?.isApp;
-      baseUrl = isApp ? TENCENT_BASE_URL : ApiPath.Tencent;
+      baseUrl = ApiPath.Tencent;
     }
 
     if (baseUrl.endsWith("/")) {

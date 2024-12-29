@@ -15,8 +15,6 @@ import {
   ChatMessageTool,
 } from "@/app/store";
 import { stream } from "@/app/utils/chat";
-import { getClientConfig } from "@/app/config/client";
-import { GEMINI_BASE_URL } from "@/app/constant";
 
 import {
   getMessageTextContent,
@@ -37,9 +35,8 @@ export class GeminiProApi implements LLMApi {
       baseUrl = accessStore.googleUrl;
     }
 
-    const isApp = !!getClientConfig()?.isApp;
     if (baseUrl.length === 0) {
-      baseUrl = isApp ? GEMINI_BASE_URL : ApiPath.Google;
+      baseUrl = ApiPath.Google;
     }
     if (baseUrl.endsWith("/")) {
       baseUrl = baseUrl.slice(0, baseUrl.length - 1);
