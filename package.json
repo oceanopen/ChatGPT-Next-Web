@@ -11,8 +11,8 @@
     "proxy-dev": "sh ./scripts/init-proxy.sh && proxychains -f ./scripts/proxychains.conf yarn dev",
     "build:next": "yarn mask && cross-env BUILD_MODE=standalone next build",
     "preview": "next start",
-    "build:dist": "rm -rf ./dist && mkdir -p ./dist/.next/static && mkdir -p ./dist/.next/server && cp -r ./public ./dist/ && cp -r .next/standalone/* ./dist/ && cp -r .next/static ./dist/.next/ && cp -r .next/server ./dist/.next/ && cp ecosystem.config.js ./dist/ && cp restart.sh ./dist/",
-    "build:start": "node dist/server.js",
+    "build:dist": "rm -rf ./dist && mkdir -p ./dist/.next/static && mkdir -p ./dist/.next/server && cp -r ./public ./dist/ && cp -r .next/standalone ./dist/ && cp -r .next/static ./dist/.next/ && cp -r .next/server ./dist/.next/ && cp ecosystem.config.js ./dist/ && cp restart.sh ./dist/",
+    "build:start": "node ./dist/standalone/server.js",
     "start": "pm2 delete ecosystem.config.js && pm2 start ecosystem.config.js",
     "lint": "next lint",
     "prompts": "node ./scripts/fetch-prompts.mjs"
