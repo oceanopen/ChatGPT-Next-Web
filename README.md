@@ -16,8 +16,11 @@ yarn install
 # 本地启动
 yarn dev
 
-# 本地预览
-yarn build:next && yarn preview
+# 本地构建预览
+yarn build:local && yarn preview:local
+
+# 生产构建预览
+yarn build:prod && yarn build:dist && yarn preview:prod
 ```
 
 ## 2. 服务部署
