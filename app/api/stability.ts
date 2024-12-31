@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSideConfig } from "@/app/config/server";
 import { ModelProvider, STABILITY_BASE_URL } from "@/app/constant";
 import { auth } from "@/app/api/auth";
+import { getClientConfig } from "../config/client";
 
 export async function handle(
   req: NextRequest,
@@ -27,7 +28,10 @@ export async function handle(
     baseUrl = baseUrl.slice(0, -1);
   }
 
-  let path = `${req.nextUrl.pathname}`.replaceAll("/api/stability/", "");
+  let path = `${req.nextUrl.pathname}`.replaceAll(
+    `${getClientConfig()?.nextBasePath}/api/stability/`,
+    "",
+  );
 
   console.log("[Stability Proxy] ", path);
   console.log("[Stability Base Url]", baseUrl);

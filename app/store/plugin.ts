@@ -52,7 +52,7 @@ export const FunctionToolService = {
     const authLocation = plugin?.authLocation || "header";
     const definition = yaml.load(plugin.content) as any;
     const serverURL = definition?.servers?.[0]?.url;
-    const baseURL = "/api/proxy";
+    const baseURL = `${getClientConfig()?.nextBasePath}/api/proxy`;
     const headers: Record<string, string | undefined> = {
       "X-Base-URL": serverURL,
     };

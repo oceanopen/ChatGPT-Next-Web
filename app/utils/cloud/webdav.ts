@@ -1,3 +1,4 @@
+import { getClientConfig } from "@/app/config/client";
 import { STORAGE_KEY } from "@/app/constant";
 import { SyncStore } from "@/app/store/sync";
 
@@ -76,7 +77,7 @@ export function createWebDavClient(store: SyncStore) {
       }
 
       let url;
-      const pathPrefix = "/api/webdav/";
+      const pathPrefix = `${getClientConfig()?.nextBasePath}/api/webdav/`;
 
       try {
         let u = new URL(proxyUrl + pathPrefix + path);

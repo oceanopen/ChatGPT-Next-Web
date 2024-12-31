@@ -12,6 +12,7 @@ import { preProcessImageContent, stream } from "@/app/utils/chat";
 import { cloudflareAIGatewayUrl } from "@/app/utils/cloudflare";
 import { RequestPayload } from "./openai";
 import { fetch } from "@/app/utils/stream";
+import { getClientConfig } from "@/app/config/client";
 
 export type MultiBlockContent = {
   type: "image" | "text";
@@ -389,7 +390,10 @@ export class ClaudeApi implements LLMApi {
       baseUrl = ApiPath.Anthropic;
     }
 
-    if (!baseUrl.startsWith("http") && !baseUrl.startsWith("/api")) {
+    if (
+      !baseUrl.startsWith("http") &&
+      !baseUrl.startsWith(`${getClientConfig()?.nextBasePath}/api`)
+    ) {
       baseUrl = "https://" + baseUrl;
     }
 

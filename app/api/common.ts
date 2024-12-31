@@ -27,6 +27,9 @@ export async function requestOpenai(req: NextRequest) {
     authHeaderName = "Authorization";
   }
 
+  console.log("[Next] req.nextUrl.pathname:", req.nextUrl.pathname);
+
+  // 这里 req.nextUrl.pathname 的值已经是 去除 nextBasePath 后的，所以不需要做修改
   let path = `${req.nextUrl.pathname}`.replaceAll("/api/openai/", "");
 
   let baseUrl =

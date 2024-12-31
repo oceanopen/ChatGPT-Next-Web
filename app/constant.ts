@@ -3,6 +3,9 @@
  * to:   https://github.com/oceanopen/ChatGPT-Next-Web
  */
 
+const nextBasePath = process.env.NEXT_BASE_PATH || "";
+console.log("[Next] constant nextBasePath: ", nextBasePath);
+
 export const OWNER = "oceanopen";
 export const REPO = "ChatGPT-Next-Web";
 export const REPO_URL = `https://github.com/${OWNER}/${REPO}`;
@@ -37,7 +40,7 @@ export const XAI_BASE_URL = "https://api.x.ai";
 
 export const CHATGLM_BASE_URL = "https://open.bigmodel.cn";
 
-export const CACHE_URL_PREFIX = "/api/cache";
+export const CACHE_URL_PREFIX = `${nextBasePath}/api/cache`;
 export const UPLOAD_URL = `${CACHE_URL_PREFIX}/upload`;
 
 export enum Path {
@@ -56,20 +59,20 @@ export enum Path {
 
 export enum ApiPath {
   Cors = "",
-  Azure = "/api/azure",
-  OpenAI = "/api/openai",
-  Anthropic = "/api/anthropic",
-  Google = "/api/google",
-  Baidu = "/api/baidu",
-  ByteDance = "/api/bytedance",
-  Alibaba = "/api/alibaba",
-  Tencent = "/api/tencent",
-  Moonshot = "/api/moonshot",
-  Iflytek = "/api/iflytek",
-  Stability = "/api/stability",
-  Artifacts = "/api/artifacts",
-  XAI = "/api/xai",
-  ChatGLM = "/api/chatglm",
+  Azure = "/chat/api/azure",
+  OpenAI = "/chat/api/openai",
+  Anthropic = "/chat/api/anthropic",
+  Google = "/chat/api/google",
+  Baidu = "/chat/api/baidu",
+  ByteDance = "/chat/api/bytedance",
+  Alibaba = "/chat/api/alibaba",
+  Tencent = "/chat/api/tencent",
+  Moonshot = "/chat/api/moonshot",
+  Iflytek = "/chat/api/iflytek",
+  Stability = "/chat/api/stability",
+  Artifacts = "/chat/api/artifacts",
+  XAI = "/chat/api/xai",
+  ChatGLM = "/chat/api/chatglm",
 }
 
 export enum SlotID {

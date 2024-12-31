@@ -34,7 +34,7 @@ async function upload(request, url) {
   if (ext === "blob") {
     ext = file.type.split("/").pop();
   }
-  const fileUrl = `${url.origin}/api/cache/${nanoid()}.${ext}`;
+  const fileUrl = `${url.origin}/chat/api/cache/${nanoid()}.${ext}`;
   // console.debug('file', file, fileUrl, request)
   const cache = await caches.open(CHATGPT_NEXT_WEB_FILE_CACHE);
   await cache.put(
@@ -59,7 +59,7 @@ async function remove(request, url) {
 
 self.addEventListener("fetch", (e) => {
   const url = new URL(e.request.url);
-  if (/^\/api\/cache/.test(url.pathname)) {
+  if (/^\/chat\/api\/cache/.test(url.pathname)) {
     if ("GET" == e.request.method) {
       e.respondWith(caches.match(e.request));
     }

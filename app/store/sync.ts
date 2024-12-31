@@ -11,6 +11,7 @@ import { downloadAs, readFromFile } from "../utils";
 import { showToast } from "../components/ui-lib";
 import Locale from "../locales";
 import { createSyncClient, ProviderType } from "../utils/cloud";
+import { getClientConfig } from "../config/client";
 
 export interface WebDavConfig {
   server: string;
@@ -132,7 +133,7 @@ export const useSyncStore = createPersistStore(
       if (version < 1.2) {
         if (
           (persistedState as typeof DEFAULT_SYNC_STATE).proxyUrl ===
-          "/api/cors/"
+          `${getClientConfig()?.nextBasePath}/api/cors/`
         ) {
           newState.proxyUrl = "";
         }
