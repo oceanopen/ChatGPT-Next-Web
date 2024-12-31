@@ -1,13 +1,18 @@
 import webpack from "webpack";
 
 const mode = process.env.BUILD_MODE ?? "standalone";
-console.log("[Next] build mode", mode);
+console.log("[Next] build mode: ", mode);
 
 const disableChunk = !!process.env.DISABLE_CHUNK || mode === "export";
 console.log("[Next] build with chunk: ", !disableChunk);
 
+const basePath = process.env.NEXT_BASE_PATH || "";
+console.log("[Next] build basePath: ", basePath);
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // https://nextjscn.org/docs/app/api-reference/next-config-js/basePath
+  basePath,
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -33,7 +38,6 @@ const nextConfig = {
   experimental: {
     forceSwcTransforms: true,
   },
-  assetPrefix: process.env.NEXT_ASSET_PREFIX || "/",
 };
 
 const CorsHeaders = [
