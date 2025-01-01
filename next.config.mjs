@@ -13,6 +13,7 @@ console.log("[Next] build nextBasePath: ", nextBasePath);
 const nextConfig = {
   // https://nextjscn.org/docs/app/api-reference/next-config-js/basePath
   basePath: nextBasePath,
+  cleanDistDir: true,
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -76,32 +77,32 @@ if (mode !== "export") {
       // },
       {
         // https://{resource_name}.openai.azure.com/openai/deployments/{deploy_name}/chat/completions
-        source: `${nextBasePath}/api/proxy/azure/:resource_name/deployments/:deploy_name/:path*`,
+        source: `/api/proxy/azure/:resource_name/deployments/:deploy_name/:path*`,
         destination:
           "https://:resource_name.openai.azure.com/openai/deployments/:deploy_name/:path*",
       },
       {
-        source: `${nextBasePath}/api/proxy/google/:path*`,
+        source: `/api/proxy/google/:path*`,
         destination: "https://generativelanguage.googleapis.com/:path*",
       },
       {
-        source: `${nextBasePath}/api/proxy/openai/:path*`,
+        source: `/api/proxy/openai/:path*`,
         destination: "https://api.openai.com/:path*",
       },
       {
-        source: `${nextBasePath}/api/proxy/anthropic/:path*`,
+        source: `/api/proxy/anthropic/:path*`,
         destination: "https://api.anthropic.com/:path*",
       },
       {
-        source: `${nextBasePath}/google-fonts/:path*`,
+        source: `/google-fonts/:path*`,
         destination: "https://fonts.googleapis.com/:path*",
       },
       {
-        source: `${nextBasePath}/sharegpt`,
+        source: `/sharegpt`,
         destination: "https://sharegpt.com/api/conversations",
       },
       {
-        source: `${nextBasePath}/api/proxy/alibaba/:path*`,
+        source: `/api/proxy/alibaba/:path*`,
         destination: "https://dashscope.aliyuncs.com/api/:path*",
       },
     ];
