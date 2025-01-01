@@ -1,4 +1,4 @@
-import { ApiPath } from "@/app/constant";
+import { ApiPath, NEXT_BASE_PATH } from "@/app/constant";
 import { NextRequest } from "next/server";
 import { handle as openaiHandler } from "../../openai";
 import { handle as azureHandler } from "../../azure";
@@ -13,13 +13,12 @@ import { handle as iflytekHandler } from "../../iflytek";
 import { handle as xaiHandler } from "../../xai";
 import { handle as chatglmHandler } from "../../glm";
 import { handle as proxyHandler } from "../../proxy";
-import { getClientConfig } from "@/app/config/client";
 
 async function handle(
   req: NextRequest,
   { params }: { params: { provider: string; path: string[] } },
 ) {
-  const apiPath = `${getClientConfig()?.nextBasePath}/api/${params.provider}`;
+  const apiPath = `${NEXT_BASE_PATH}/api/${params.provider}`;
   console.log(`[${params.provider} Route] params `, params);
   switch (apiPath) {
     case ApiPath.Azure:

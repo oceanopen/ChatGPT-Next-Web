@@ -3,6 +3,7 @@ import {
   ServiceProvider,
   StoreKey,
   ApiPath,
+  NEXT_BASE_PATH,
 } from "../constant";
 import { getHeaders } from "../client/api";
 import { getClientConfig } from "../config/client";
@@ -203,7 +204,7 @@ export const useAccessStore = createPersistStore(
       if (fetchState > 0 || getClientConfig()?.nextBuildMode === "export")
         return;
       fetchState = 1;
-      fetch(`${getClientConfig()?.nextBasePath}/api/config`, {
+      fetch(`${NEXT_BASE_PATH}/api/config`, {
         method: "post",
         body: null,
         headers: {

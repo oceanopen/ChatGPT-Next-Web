@@ -1,7 +1,7 @@
 import { useDebouncedCallback } from "use-debounce";
 import OpenAPIClientAxios from "openapi-client-axios";
 import yaml from "js-yaml";
-import { PLUGINS_REPO_URL } from "../constant";
+import { NEXT_BASE_PATH, PLUGINS_REPO_URL } from "../constant";
 import { IconButton } from "./button";
 import { ErrorBoundary } from "./error";
 
@@ -29,7 +29,6 @@ import Locale from "../locales";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import clsx from "clsx";
-import { getClientConfig } from "../config/client";
 
 export function PluginPage() {
   const navigate = useNavigate();
@@ -91,14 +90,11 @@ export function PluginPage() {
     fetch(loadUrl)
       .catch((e) => {
         const p = new URL(loadUrl);
-        return fetch(
-          `${getClientConfig()?.nextBasePath}/api/proxy/${p.pathname}?${p.search}`,
-          {
-            headers: {
-              "X-Base-URL": p.origin,
-            },
+        return fetch(`${NEXT_BASE_PATH}/api/proxy/${p.pathname}?${p.search}`, {
+          headers: {
+            "X-Base-URL": p.origin,
           },
-        );
+        });
       })
       .then((res) => res.text())
       .then((content) => {

@@ -1,11 +1,10 @@
 import OpenAPIClientAxios from "openapi-client-axios";
-import { StoreKey } from "../constant";
+import { NEXT_BASE_PATH, StoreKey } from "../constant";
 import { nanoid } from "nanoid";
 import { createPersistStore } from "../utils/store";
 import yaml from "js-yaml";
 import { getOperationId } from "../utils";
 import { useAccessStore } from "./access";
-import { getClientConfig } from "../config/client";
 
 export type Plugin = {
   id: string;
@@ -52,7 +51,7 @@ export const FunctionToolService = {
     const authLocation = plugin?.authLocation || "header";
     const definition = yaml.load(plugin.content) as any;
     const serverURL = definition?.servers?.[0]?.url;
-    const baseURL = `${getClientConfig()?.nextBasePath}/api/proxy`;
+    const baseURL = `${NEXT_BASE_PATH}/api/proxy`;
     const headers: Record<string, string | undefined> = {
       "X-Base-URL": serverURL,
     };
@@ -234,7 +233,7 @@ export const usePluginStore = createPersistStore(
         return;
       }
 
-      fetch(`${getClientConfig()?.nextBasePath}/plugins.json`)
+      fetch(`${NEXT_BASE_PATH}/plugins.json`)
         .then((res) => res.json())
         .then((res) => {
           Promise.all(

@@ -7,6 +7,7 @@ import {
   Azure,
   REQUEST_TIMEOUT_MS,
   ServiceProvider,
+  NEXT_BASE_PATH,
 } from "@/app/constant";
 import {
   ChatMessageTool,
@@ -41,7 +42,6 @@ import {
   isDalle3 as _isDalle3,
 } from "@/app/utils";
 import { fetch } from "@/app/utils/stream";
-import { getClientConfig } from "@/app/config/client";
 
 export interface OpenAIListModelResponse {
   object: string;
@@ -105,7 +105,7 @@ export class ChatGPTApi implements LLMApi {
       baseUrl = baseUrl.slice(0, baseUrl.length - 1);
     }
     if (baseUrl.startsWith("/api/")) {
-      baseUrl = `${getClientConfig()?.nextBasePath}${baseUrl}`;
+      baseUrl = `${NEXT_BASE_PATH}${baseUrl}`;
     }
     if (
       !baseUrl.startsWith("http") &&

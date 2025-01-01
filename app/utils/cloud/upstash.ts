@@ -1,7 +1,6 @@
-import { STORAGE_KEY } from "@/app/constant";
+import { NEXT_BASE_PATH, STORAGE_KEY } from "@/app/constant";
 import { SyncStore } from "@/app/store/sync";
 import { chunks } from "../format";
-import { getClientConfig } from "@/app/config/client";
 
 export type UpstashConfig = SyncStore["upstash"];
 export type UpStashClient = ReturnType<typeof createUpstashClient>;
@@ -94,7 +93,7 @@ export function createUpstashClient(store: SyncStore) {
       }
 
       let url;
-      const pathPrefix = `${getClientConfig()?.nextBasePath}/api/upstash/`;
+      const pathPrefix = `${NEXT_BASE_PATH}/api/upstash/`;
 
       try {
         let u = new URL(proxyUrl + pathPrefix + path);

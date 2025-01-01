@@ -1,4 +1,4 @@
-import { ApiPath, STORAGE_KEY, StoreKey } from "../constant";
+import { ApiPath, NEXT_BASE_PATH, STORAGE_KEY, StoreKey } from "../constant";
 import { createPersistStore } from "../utils/store";
 import {
   AppState,
@@ -11,7 +11,6 @@ import { downloadAs, readFromFile } from "../utils";
 import { showToast } from "../components/ui-lib";
 import Locale from "../locales";
 import { createSyncClient, ProviderType } from "../utils/cloud";
-import { getClientConfig } from "../config/client";
 
 export interface WebDavConfig {
   server: string;
@@ -133,7 +132,7 @@ export const useSyncStore = createPersistStore(
       if (version < 1.2) {
         if (
           (persistedState as typeof DEFAULT_SYNC_STATE).proxyUrl ===
-          `${getClientConfig()?.nextBasePath}/api/cors/`
+          `${NEXT_BASE_PATH}/api/cors/`
         ) {
           newState.proxyUrl = "";
         }

@@ -1,5 +1,10 @@
 "use client";
-import { ApiPath, Baidu, REQUEST_TIMEOUT_MS } from "@/app/constant";
+import {
+  ApiPath,
+  Baidu,
+  NEXT_BASE_PATH,
+  REQUEST_TIMEOUT_MS,
+} from "@/app/constant";
 import { useAccessStore, useAppConfig, useChatStore } from "@/app/store";
 
 import {
@@ -18,7 +23,6 @@ import {
 import { prettyObject } from "@/app/utils/format";
 import { getMessageTextContent } from "@/app/utils";
 import { fetch } from "@/app/utils/stream";
-import { getClientConfig } from "@/app/config/client";
 
 export interface OpenAIListModelResponse {
   object: string;
@@ -61,7 +65,7 @@ export class ErnieApi implements LLMApi {
       baseUrl = baseUrl.slice(0, baseUrl.length - 1);
     }
     if (baseUrl.startsWith("/api/")) {
-      baseUrl = `${getClientConfig()?.nextBasePath}${baseUrl}`;
+      baseUrl = `${NEXT_BASE_PATH}${baseUrl}`;
     }
     if (!baseUrl.startsWith("http") && !baseUrl.startsWith(ApiPath.Baidu)) {
       baseUrl = "https://" + baseUrl;

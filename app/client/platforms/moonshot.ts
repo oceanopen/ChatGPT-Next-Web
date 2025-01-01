@@ -1,6 +1,11 @@
 "use client";
 // azure and openai, using same models. so using same LLMApi.
-import { ApiPath, Moonshot, REQUEST_TIMEOUT_MS } from "@/app/constant";
+import {
+  ApiPath,
+  Moonshot,
+  NEXT_BASE_PATH,
+  REQUEST_TIMEOUT_MS,
+} from "@/app/constant";
 import {
   useAccessStore,
   useAppConfig,
@@ -19,7 +24,6 @@ import {
 import { getMessageTextContent } from "@/app/utils";
 import { RequestPayload } from "./openai";
 import { fetch } from "@/app/utils/stream";
-import { getClientConfig } from "@/app/config/client";
 
 export class MoonshotApi implements LLMApi {
   private disableListModels = true;
@@ -42,7 +46,7 @@ export class MoonshotApi implements LLMApi {
       baseUrl = baseUrl.slice(0, baseUrl.length - 1);
     }
     if (baseUrl.startsWith("/api/")) {
-      baseUrl = `${getClientConfig()?.nextBasePath}${baseUrl}`;
+      baseUrl = `${NEXT_BASE_PATH}${baseUrl}`;
     }
     if (!baseUrl.startsWith("http") && !baseUrl.startsWith(ApiPath.Moonshot)) {
       baseUrl = "https://" + baseUrl;

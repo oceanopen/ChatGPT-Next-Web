@@ -1,5 +1,5 @@
 "use client";
-import { ApiPath, REQUEST_TIMEOUT_MS } from "@/app/constant";
+import { ApiPath, NEXT_BASE_PATH, REQUEST_TIMEOUT_MS } from "@/app/constant";
 import { useAccessStore, useAppConfig, useChatStore } from "@/app/store";
 
 import {
@@ -22,7 +22,6 @@ import mapValues from "lodash-es/mapValues";
 import isArray from "lodash-es/isArray";
 import isObject from "lodash-es/isObject";
 import { fetch } from "@/app/utils/stream";
-import { getClientConfig } from "@/app/config/client";
 
 export interface OpenAIListModelResponse {
   object: string;
@@ -77,7 +76,7 @@ export class HunyuanApi implements LLMApi {
       baseUrl = baseUrl.slice(0, baseUrl.length - 1);
     }
     if (baseUrl.startsWith("/api/")) {
-      baseUrl = `${getClientConfig()?.nextBasePath}${baseUrl}`;
+      baseUrl = `${NEXT_BASE_PATH}${baseUrl}`;
     }
     if (!baseUrl.startsWith("http") && !baseUrl.startsWith(ApiPath.Tencent)) {
       baseUrl = "https://" + baseUrl;

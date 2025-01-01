@@ -11,7 +11,7 @@ import LoadingIcon from "../icons/three-dots.svg";
 import { getCSSVar, useMobileScreen } from "../utils";
 
 import dynamic from "next/dynamic";
-import { Path, SlotID } from "../constant";
+import { NEXT_BASE_PATH, Path, SlotID } from "../constant";
 import { ErrorBoundary } from "./error";
 
 import { getISOLang } from "../locales";
@@ -128,7 +128,7 @@ const useHasHydrated = () => {
 
 const loadAsyncGoogleFont = () => {
   const linkEl = document.createElement("link");
-  const proxyFontUrl = `${getClientConfig()?.nextBasePath}/google-fonts`;
+  const proxyFontUrl = `${NEXT_BASE_PATH}/google-fonts`;
   const remoteFontUrl = "https://fonts.googleapis.com";
   const googleFontUrl =
     getClientConfig()?.nextBuildMode === "export"

@@ -2,7 +2,7 @@ import { Mask } from "../store/mask";
 
 import { type BuiltinMask } from "./typing";
 export { type BuiltinMask } from "./typing";
-import { getClientConfig } from "../config/client";
+import { NEXT_BASE_PATH } from "../constant";
 
 export const BUILTIN_MASK_ID = 100000;
 
@@ -24,7 +24,7 @@ export const BUILTIN_MASKS: BuiltinMask[] = [];
 
 if (typeof window != "undefined") {
   // run in browser skip in next server
-  fetch(`${getClientConfig()?.nextBasePath}/masks.json`)
+  fetch(`${NEXT_BASE_PATH}/masks.json`)
     .then((res) => res.json())
     .catch((error) => {
       console.error("[Fetch] failed to fetch masks", error);

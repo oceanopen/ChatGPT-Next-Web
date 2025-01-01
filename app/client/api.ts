@@ -2,6 +2,7 @@ import { getClientConfig } from "../config/client";
 import {
   ACCESS_CODE_PREFIX,
   ModelProvider,
+  NEXT_BASE_PATH,
   ServiceProvider,
 } from "../constant";
 import {
@@ -188,7 +189,7 @@ export class ClientApi {
     // Please do not modify this message
 
     console.log("[Share]", messages, msgs);
-    const proxyUrl = `${getClientConfig()?.nextBasePath}/sharegpt`;
+    const proxyUrl = `${NEXT_BASE_PATH}/sharegpt`;
     const shareUrl = proxyUrl;
     const res = await fetch(shareUrl, {
       body: JSON.stringify({

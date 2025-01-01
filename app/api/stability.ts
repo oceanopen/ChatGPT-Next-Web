@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSideConfig } from "@/app/config/server";
-import { ModelProvider, STABILITY_BASE_URL } from "@/app/constant";
+import {
+  ModelProvider,
+  NEXT_BASE_PATH,
+  STABILITY_BASE_URL,
+} from "@/app/constant";
 import { auth } from "@/app/api/auth";
-import { getClientConfig } from "../config/client";
 
 export async function handle(
   req: NextRequest,
@@ -29,7 +32,7 @@ export async function handle(
   }
 
   let path = `${req.nextUrl.pathname}`.replaceAll(
-    `${getClientConfig()?.nextBasePath}/api/stability/`,
+    `${NEXT_BASE_PATH}/api/stability/`,
     "",
   );
 
