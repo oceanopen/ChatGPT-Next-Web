@@ -1,4 +1,4 @@
-import { DEFAULT_INPUT_TEMPLATE } from "../constant";
+import { DEFAULT_INPUT_TEMPLATE, NEXT_BASE_PATH } from "../constant";
 import packageJson from "../../package.json";
 
 export const getBuildConfig = () => {
@@ -37,6 +37,7 @@ export const getBuildConfig = () => {
     version,
     ...commitInfo,
     nextBuildMode,
+    nextBasePath: NEXT_BASE_PATH,
     template: process.env.DEFAULT_INPUT_TEMPLATE ?? DEFAULT_INPUT_TEMPLATE,
     visionModels: process.env.VISION_MODELS || "",
   };

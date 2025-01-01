@@ -1,8 +1,6 @@
 import { SubmitKey } from "../store/config";
 import { NEXT_BASE_PATH } from "../constant";
 
-console.log("[Next] locales, NEXT_BASE_PATH: ", NEXT_BASE_PATH);
-
 const cn = {
   WIP: "该功能仍在开发中……",
   Error: {

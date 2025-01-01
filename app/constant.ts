@@ -3,7 +3,7 @@
  * to:   https://github.com/oceanopen/ChatGPT-Next-Web
  */
 
-export const NEXT_BASE_PATH = "/chat";
+export const NEXT_BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 console.log("[Next] constant NEXT_BASE_PATH: ", NEXT_BASE_PATH);
 
 export const OWNER = "oceanopen";
@@ -57,23 +57,23 @@ export enum Path {
   SearchChat = "/search-chat",
 }
 
-export enum ApiPath {
-  Cors = "",
-  Azure = `${NEXT_BASE_PATH}/api/azure`,
-  OpenAI = `${NEXT_BASE_PATH}/api/openai`,
-  Anthropic = `${NEXT_BASE_PATH}/api/anthropic`,
-  Google = `${NEXT_BASE_PATH}/api/google`,
-  Baidu = `${NEXT_BASE_PATH}/api/baidu`,
-  ByteDance = `${NEXT_BASE_PATH}/api/bytedance`,
-  Alibaba = `${NEXT_BASE_PATH}/api/alibaba`,
-  Tencent = `${NEXT_BASE_PATH}/api/tencent`,
-  Moonshot = `${NEXT_BASE_PATH}/api/moonshot`,
-  Iflytek = `${NEXT_BASE_PATH}/api/iflytek`,
-  Stability = `${NEXT_BASE_PATH}/api/stability`,
-  Artifacts = `${NEXT_BASE_PATH}/api/artifacts`,
-  XAI = `${NEXT_BASE_PATH}/api/xai`,
-  ChatGLM = `${NEXT_BASE_PATH}/api/chatglm`,
-}
+export const ApiPath = {
+  Cors: "",
+  Azure: `${NEXT_BASE_PATH}/api/azure`,
+  OpenAI: `${NEXT_BASE_PATH}/api/openai`,
+  Anthropic: `${NEXT_BASE_PATH}/api/anthropic`,
+  Google: `${NEXT_BASE_PATH}/api/google`,
+  Baidu: `${NEXT_BASE_PATH}/api/baidu`,
+  ByteDance: `${NEXT_BASE_PATH}/api/bytedance`,
+  Alibaba: `${NEXT_BASE_PATH}/api/alibaba`,
+  Tencent: `${NEXT_BASE_PATH}/api/tencent`,
+  Moonshot: `${NEXT_BASE_PATH}/api/moonshot`,
+  Iflytek: `${NEXT_BASE_PATH}/api/iflytek`,
+  Stability: `${NEXT_BASE_PATH}/api/stability`,
+  Artifacts: `${NEXT_BASE_PATH}/api/artifacts`,
+  XAI: `${NEXT_BASE_PATH}/api/xai`,
+  ChatGLM: `${NEXT_BASE_PATH}/api/chatglm`,
+} as const;
 
 export enum SlotID {
   AppBody = "app-body",

@@ -4,8 +4,6 @@ import { SubmitKey } from "../store/config";
 import { LocaleType } from "./index";
 import { NEXT_BASE_PATH } from "../constant";
 
-console.log("[Next] locales, NEXT_BASE_PATH: ", NEXT_BASE_PATH);
-
 const en: LocaleType = {
   WIP: "Coming Soon...",
   Error: {

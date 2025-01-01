@@ -65,3 +65,4 @@ docker ps -a
 - [Nvm Install](https://github.com/nvm-sh/nvm)
 - [pm2 Quick Start](https://pm2.keymetrics.io/docs/usage/quick-start/)
 - [pm2-logrotate](https://github.com/keymetrics/pm2-logrotate#configure)
+- [Next.js Docs](https://nextjs.org/docs)
