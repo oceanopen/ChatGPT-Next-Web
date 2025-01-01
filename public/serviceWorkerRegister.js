@@ -22,6 +22,7 @@ if ("serviceWorker" in navigator) {
         window._SW_ENABLED = true;
       },
       function (err) {
+        console.log("[serviceWorker] registration.scope:", registration.scope);
         console.error("ServiceWorker registration failed: ", err);
       },
     );

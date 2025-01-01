@@ -1,12 +1,16 @@
+// if you are adding a new translation, please use PartialLocaleType instead of LocaleType
+
 import { SubmitKey } from "../store/config";
 import { LocaleType } from "./index";
-// if you are adding a new translation, please use PartialLocaleType instead of LocaleType
+import { NEXT_BASE_PATH } from "../constant";
+
+console.log("[Next] locales, NEXT_BASE_PATH: ", NEXT_BASE_PATH);
 
 const en: LocaleType = {
   WIP: "Coming Soon...",
   Error: {
     Unauthorized: `😆 Oops, there's an issue. Let's fix it:
-    \ 2️⃣ Using a private setup? [Click here](/#/auth) to enter your key 🔑`,
+    \ 2️⃣ Using a private setup? [Click here](${NEXT_BASE_PATH}/#/auth) to enter your key 🔑`,
   },
   Auth: {
     Return: "Return",
@@ -17,8 +21,7 @@ const en: LocaleType = {
     Confirm: "Confirm",
     Later: "Later",
     SaasTips: "Too Complex, Use Immediately Now",
-    TopTips:
-      "🥳 NextChat AI launch promotion: Instantly unlock the latest models like OpenAI o1, GPT-4o, Claude-3.5!",
+    TopTips: "🥳 Unlock the latest models like OpenAI o1, GPT-4o, Claude-3.5!",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} messages`,

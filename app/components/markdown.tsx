@@ -305,8 +305,8 @@ function _MarkDownContent(props: { content: string }) {
               </video>
             );
           }
-          const isInternal = /^\/#/i.test(href);
-          const target = isInternal ? "_self" : aProps.target ?? "_blank";
+          const isInternal = /^(\/chat)?\/#/i.test(href);
+          const target = isInternal ? "_self" : (aProps.target ?? "_blank");
           return <a {...aProps} target={target} />;
         },
       }}
