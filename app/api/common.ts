@@ -27,6 +27,9 @@ export async function requestOpenai(req: NextRequest) {
     authHeaderName = "Authorization";
   }
 
+  console.log("[requestOpenai] req.nextUrl.pathname:", req.nextUrl.pathname);
+
+  // 这里 req.nextUrl.pathname 的值已经是 去除 nextBasePath 后的，所以不需要做修改
   let path = `${req.nextUrl.pathname}`.replaceAll("/api/openai/", "");
 
   let baseUrl =
@@ -40,8 +43,8 @@ export async function requestOpenai(req: NextRequest) {
     baseUrl = baseUrl.slice(0, -1);
   }
 
-  console.log("[Proxy] ", path);
-  console.log("[Base Url]", baseUrl);
+  console.log("[requestOpenai] [Proxy] ", path);
+  console.log("[requestOpenai] [Base Url]", baseUrl);
 
   const timeoutId = setTimeout(
     () => {
@@ -82,14 +85,14 @@ export async function requestOpenai(req: NextRequest) {
           }
         });
       if (realDeployName) {
-        console.log("[Replace with DeployId", realDeployName);
+        console.log("[requestOpenai] [Replace with DeployId", realDeployName);
         path = path.replaceAll(modelName, realDeployName);
       }
     }
   }
 
   const fetchUrl = cloudflareAIGatewayUrl(`${baseUrl}/${path}`);
-  console.log("fetchUrl", fetchUrl);
+  console.log("[requestOpenai] fetchUrl: ", fetchUrl);
   const fetchOptions: RequestInit = {
     headers: {
       "Content-Type": "application/json",

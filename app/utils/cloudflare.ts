@@ -2,6 +2,8 @@ export function cloudflareAIGatewayUrl(fetchUrl: string) {
   // rebuild fetchUrl, if using cloudflare ai gateway
   // document: https://developers.cloudflare.com/ai-gateway/providers/openai/
 
+  console.log("[Next] cloudflareAIGatewayUrl, fetchUrl:", fetchUrl);
+
   const paths = fetchUrl.split("/");
   if ("gateway.ai.cloudflare.com" == paths[2]) {
     // is cloudflare.com ai gateway

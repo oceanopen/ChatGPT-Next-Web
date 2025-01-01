@@ -1,13 +1,19 @@
 import webpack from "webpack";
 
-const mode = process.env.BUILD_MODE ?? "standalone";
-console.log("[Next] build mode", mode);
+const mode = process.env.NEXT_BUILD_MODE ?? "standalone";
+console.log("[Next] build mode: ", mode);
 
 const disableChunk = !!process.env.DISABLE_CHUNK || mode === "export";
 console.log("[Next] build with chunk: ", !disableChunk);
 
+const nextBasePath = process.env.NEXT_BASE_PATH || "";
+console.log("[Next] build nextBasePath: ", nextBasePath);
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // https://nextjscn.org/docs/app/api-reference/next-config-js/basePath
+  basePath: nextBasePath,
+  cleanDistDir: true,
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -33,7 +39,6 @@ const nextConfig = {
   experimental: {
     forceSwcTransforms: true,
   },
-  assetPrefix: process.env.NEXT_ASSET_PREFIX || "/",
 };
 
 const CorsHeaders = [
@@ -57,7 +62,7 @@ if (mode !== "export") {
   nextConfig.headers = async () => {
     return [
       {
-        source: "/api/:path*",
+        source: `${nextBasePath}/api/:path*`,
         headers: CorsHeaders,
       },
     ];
@@ -72,33 +77,32 @@ if (mode !== "export") {
       // },
       {
         // https://{resource_name}.openai.azure.com/openai/deployments/{deploy_name}/chat/completions
-        source:
-          "/api/proxy/azure/:resource_name/deployments/:deploy_name/:path*",
+        source: `/api/proxy/azure/:resource_name/deployments/:deploy_name/:path*`,
         destination:
           "https://:resource_name.openai.azure.com/openai/deployments/:deploy_name/:path*",
       },
       {
-        source: "/api/proxy/google/:path*",
+        source: `/api/proxy/google/:path*`,
         destination: "https://generativelanguage.googleapis.com/:path*",
       },
       {
-        source: "/api/proxy/openai/:path*",
+        source: `/api/proxy/openai/:path*`,
         destination: "https://api.openai.com/:path*",
       },
       {
-        source: "/api/proxy/anthropic/:path*",
+        source: `/api/proxy/anthropic/:path*`,
         destination: "https://api.anthropic.com/:path*",
       },
       {
-        source: "/google-fonts/:path*",
+        source: `/google-fonts/:path*`,
         destination: "https://fonts.googleapis.com/:path*",
       },
       {
-        source: "/sharegpt",
+        source: `/sharegpt`,
         destination: "https://sharegpt.com/api/conversations",
       },
       {
-        source: "/api/proxy/alibaba/:path*",
+        source: `/api/proxy/alibaba/:path*`,
         destination: "https://dashscope.aliyuncs.com/api/:path*",
       },
     ];

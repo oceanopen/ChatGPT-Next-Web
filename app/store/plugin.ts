@@ -5,6 +5,7 @@ import { createPersistStore } from "../utils/store";
 import yaml from "js-yaml";
 import { getOperationId } from "../utils";
 import { useAccessStore } from "./access";
+import { getClientConfig } from "../config/client";
 
 export type Plugin = {
   id: string;
@@ -46,12 +47,12 @@ export const FunctionToolService = {
       plugin?.authType == "basic"
         ? `Basic ${plugin?.authToken}`
         : plugin?.authType == "bearer"
-        ? `Bearer ${plugin?.authToken}`
-        : plugin?.authToken;
+          ? `Bearer ${plugin?.authToken}`
+          : plugin?.authToken;
     const authLocation = plugin?.authLocation || "header";
     const definition = yaml.load(plugin.content) as any;
     const serverURL = definition?.servers?.[0]?.url;
-    const baseURL = "/api/proxy";
+    const baseURL = `${getClientConfig()?.nextBasePath}/api/proxy`;
     const headers: Record<string, string | undefined> = {
       "X-Base-URL": serverURL,
     };
@@ -233,7 +234,7 @@ export const usePluginStore = createPersistStore(
         return;
       }
 
-      fetch("./plugins.json")
+      fetch(`${getClientConfig()?.nextBasePath}/plugins.json`)
         .then((res) => res.json())
         .then((res) => {
           Promise.all(

@@ -188,7 +188,7 @@ export class ClientApi {
     // Please do not modify this message
 
     console.log("[Share]", messages, msgs);
-    const proxyUrl = "/sharegpt";
+    const proxyUrl = `${getClientConfig()?.nextBasePath}/sharegpt`;
     const shareUrl = proxyUrl;
     const res = await fetch(shareUrl, {
       body: JSON.stringify({
@@ -251,24 +251,27 @@ export function getHeaders(ignoreHeaders: boolean = false) {
     const apiKey = isGoogle
       ? accessStore.googleApiKey
       : isAzure
-      ? accessStore.azureApiKey
-      : isAnthropic
-      ? accessStore.anthropicApiKey
-      : isByteDance
-      ? accessStore.bytedanceApiKey
-      : isAlibaba
-      ? accessStore.alibabaApiKey
-      : isMoonshot
-      ? accessStore.moonshotApiKey
-      : isXAI
-      ? accessStore.xaiApiKey
-      : isChatGLM
-      ? accessStore.chatglmApiKey
-      : isIflytek
-      ? accessStore.iflytekApiKey && accessStore.iflytekApiSecret
-        ? accessStore.iflytekApiKey + ":" + accessStore.iflytekApiSecret
-        : ""
-      : accessStore.openaiApiKey;
+        ? accessStore.azureApiKey
+        : isAnthropic
+          ? accessStore.anthropicApiKey
+          : isByteDance
+            ? accessStore.bytedanceApiKey
+            : isAlibaba
+              ? accessStore.alibabaApiKey
+              : isMoonshot
+                ? accessStore.moonshotApiKey
+                : isXAI
+                  ? accessStore.xaiApiKey
+                  : isChatGLM
+                    ? accessStore.chatglmApiKey
+                    : isIflytek
+                      ? accessStore.iflytekApiKey &&
+                        accessStore.iflytekApiSecret
+                        ? accessStore.iflytekApiKey +
+                          ":" +
+                          accessStore.iflytekApiSecret
+                        : ""
+                      : accessStore.openaiApiKey;
     return {
       isGoogle,
       isAzure,
@@ -289,10 +292,10 @@ export function getHeaders(ignoreHeaders: boolean = false) {
     return isAzure
       ? "api-key"
       : isAnthropic
-      ? "x-api-key"
-      : isGoogle
-      ? "x-goog-api-key"
-      : "Authorization";
+        ? "x-api-key"
+        : isGoogle
+          ? "x-goog-api-key"
+          : "Authorization";
   }
 
   const { isGoogle, isAzure, isAnthropic, apiKey, isEnabledAccessControl } =

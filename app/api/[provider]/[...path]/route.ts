@@ -13,12 +13,13 @@ import { handle as iflytekHandler } from "../../iflytek";
 import { handle as xaiHandler } from "../../xai";
 import { handle as chatglmHandler } from "../../glm";
 import { handle as proxyHandler } from "../../proxy";
+import { getClientConfig } from "@/app/config/client";
 
 async function handle(
   req: NextRequest,
   { params }: { params: { provider: string; path: string[] } },
 ) {
-  const apiPath = `/api/${params.provider}`;
+  const apiPath = `${getClientConfig()?.nextBasePath}/api/${params.provider}`;
   console.log(`[${params.provider} Route] params `, params);
   switch (apiPath) {
     case ApiPath.Azure:
@@ -33,7 +34,6 @@ async function handle(
       return bytedanceHandler(req, { params });
     case ApiPath.Alibaba:
       return alibabaHandler(req, { params });
-    // case ApiPath.Tencent: using "/api/tencent"
     case ApiPath.Moonshot:
       return moonshotHandler(req, { params });
     case ApiPath.Stability:

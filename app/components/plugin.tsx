@@ -29,6 +29,7 @@ import Locale from "../locales";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import clsx from "clsx";
+import { getClientConfig } from "../config/client";
 
 export function PluginPage() {
   const navigate = useNavigate();
@@ -43,8 +44,8 @@ export function PluginPage() {
   const onSearch = (text: string) => {
     setSearchText(text);
     if (text.length > 0) {
-      const result = allPlugins.filter(
-        (m) => m?.title.toLowerCase().includes(text.toLowerCase()),
+      const result = allPlugins.filter((m) =>
+        m?.title.toLowerCase().includes(text.toLowerCase()),
       );
       setSearchPlugins(result);
     } else {
@@ -90,11 +91,14 @@ export function PluginPage() {
     fetch(loadUrl)
       .catch((e) => {
         const p = new URL(loadUrl);
-        return fetch(`/api/proxy/${p.pathname}?${p.search}`, {
-          headers: {
-            "X-Base-URL": p.origin,
+        return fetch(
+          `${getClientConfig()?.nextBasePath}/api/proxy/${p.pathname}?${p.search}`,
+          {
+            headers: {
+              "X-Base-URL": p.origin,
+            },
           },
-        });
+        );
       })
       .then((res) => res.text())
       .then((content) => {

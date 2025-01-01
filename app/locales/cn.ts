@@ -1,10 +1,13 @@
 import { SubmitKey } from "../store/config";
+import { NEXT_BASE_PATH } from "../constant";
+
+console.log("[Next] locales, NEXT_BASE_PATH: ", NEXT_BASE_PATH);
 
 const cn = {
   WIP: "该功能仍在开发中……",
   Error: {
     Unauthorized: `😆 对话遇到了一些问题，不用慌:
-    \ 2️⃣ 如果你正在使用私有部署版本，点击[这里](/#/auth)输入访问秘钥 🔑`,
+    \ 2️⃣ 如果你正在使用私有部署版本，点击[这里](${NEXT_BASE_PATH}/#/auth)输入访问秘钥 🔑`,
   },
   Auth: {
     Return: "返回",
@@ -15,8 +18,7 @@ const cn = {
     Confirm: "确认",
     Later: "稍后再说",
     SaasTips: "配置太麻烦，想要立即使用",
-    TopTips:
-      "🥳 NextChat AI 首发优惠，立刻解锁 OpenAI o1, GPT-4o, Claude-3.5 等最新大模型",
+    TopTips: "🥳 解锁 OpenAI o1, GPT-4o, Claude-3.5 等最新大模型",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 条对话`,

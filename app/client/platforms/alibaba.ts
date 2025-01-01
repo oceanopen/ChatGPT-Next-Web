@@ -18,6 +18,7 @@ import {
 import { prettyObject } from "@/app/utils/format";
 import { getMessageTextContent } from "@/app/utils";
 import { fetch } from "@/app/utils/stream";
+import { getClientConfig } from "@/app/config/client";
 
 export interface OpenAIListModelResponse {
   object: string;
@@ -64,6 +65,9 @@ export class QwenApi implements LLMApi {
 
     if (baseUrl.endsWith("/")) {
       baseUrl = baseUrl.slice(0, baseUrl.length - 1);
+    }
+    if (baseUrl.startsWith("/api/")) {
+      baseUrl = `${getClientConfig()?.nextBasePath}${baseUrl}`;
     }
     if (!baseUrl.startsWith("http") && !baseUrl.startsWith(ApiPath.Alibaba)) {
       baseUrl = "https://" + baseUrl;
