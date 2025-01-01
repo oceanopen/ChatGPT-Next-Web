@@ -22,8 +22,11 @@ if ("serviceWorker" in navigator) {
         window._SW_ENABLED = true;
       },
       function (err) {
-        console.log("[serviceWorker] registration.scope:", registration.scope);
-        console.error("ServiceWorker registration failed: ", err);
+        console.warn(
+          "ServiceWorker registration failed, registration.scope:",
+          registration.scope,
+        );
+        console.error("ServiceWorker registration failed, error: ", err);
       },
     );
     navigator.serviceWorker.addEventListener("controllerchange", function () {
