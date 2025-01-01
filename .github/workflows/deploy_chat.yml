@@ -53,7 +53,7 @@ jobs:
 
       # This project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
       - name: Install dependencies and Build 🔧
-        run: yarn install && yarn build:prod && yarn build:dist
+        run: yarn install && yarn build:next && yarn build:dist
 
       - name: Deploy to Server
         uses: easingthemes/ssh-deploy@main # https://github.com/marketplace/actions/ssh-deploy
@@ -70,20 +70,6 @@ jobs:
           # "-avzr --delete" 意味部署时清空服务器目标目录下的文件
           ARGS: -avzr --delete
           # 源目录，相对于 $GITHUB_WORKSPACE 根目录的路径
-          SOURCE: dist/
+          SOURCE: dist/ deploy/ package.json
           # 目标目录
-          TARGET: /data/web/${{ github.event.repository.name }}/dist
-
-      - name: Remote SSH Run
-        uses: appleboy/ssh-action@master # https://github.com/appleboy/ssh-action/tree/master/
-        if: env.remote_host && env.remote_user && env.remote_ssh_key
-        with:
-          host: ${{ secrets.CVM_IP }}
-          username: ${{ secrets.CVM_USER_NAME }}
-          key: ${{ secrets.CVM_PRIVATE_KEY }}
-          # 这里 workflow 执行 "sh restart.sh" 会执行报错 "node: command not found", 故改为部署更新后手动执行
-          script: |
-            cd /data/web/${{ github.event.repository.name }}/
-            cp -f .env ./dist/
-            cp ./dist/ecosystem.config.js ./
-            cp ./dist/restart.sh ./
+          TARGET: /data/web/${{ github.event.repository.name }}/
