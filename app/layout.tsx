@@ -5,6 +5,7 @@ import "./styles/highlight.scss";
 import { getClientConfig } from "./config/client";
 import type { Metadata, Viewport } from "next";
 import { getServerSideConfig } from "./config/server";
+import { NEXT_BASE_PATH } from "./constant";
 const serverConfig = getServerSideConfig();
 
 export const metadata: Metadata = {
@@ -41,11 +42,11 @@ export default function RootLayout({
         />
         <link
           rel="manifest"
-          href={`${getClientConfig()?.nextBasePath}/site.webmanifest`}
+          href={`${NEXT_BASE_PATH}/site.webmanifest`}
           crossOrigin="use-credentials"
         ></link>
         <script
-          src={`${getClientConfig()?.nextBasePath}/serviceWorkerRegister.js`}
+          src={`${NEXT_BASE_PATH}/serviceWorkerRegister.js`}
           defer
         ></script>
       </head>

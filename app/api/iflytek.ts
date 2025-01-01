@@ -4,6 +4,7 @@ import {
   ApiPath,
   ModelProvider,
   ServiceProvider,
+  NEXT_BASE_PATH,
 } from "@/app/constant";
 import { prettyObject } from "@/app/utils/format";
 import { NextRequest, NextResponse } from "next/server";
@@ -43,7 +44,10 @@ async function request(req: NextRequest) {
   const controller = new AbortController();
 
   // iflytek use base url or just remove the path
-  let path = `${req.nextUrl.pathname}`.replaceAll(ApiPath.Iflytek, "");
+  let path = `${NEXT_BASE_PATH}${req.nextUrl.pathname}`.replaceAll(
+    ApiPath.Iflytek,
+    "",
+  );
 
   let baseUrl = serverConfig.iflytekUrl || IFLYTEK_BASE_URL;
 
@@ -55,8 +59,8 @@ async function request(req: NextRequest) {
     baseUrl = baseUrl.slice(0, -1);
   }
 
-  console.log("[Proxy] ", path);
-  console.log("[Base Url]", baseUrl);
+  console.log("[Iflytek Proxy] ", path);
+  console.log("[Iflytek Base Url]", baseUrl);
 
   const timeoutId = setTimeout(
     () => {
@@ -66,6 +70,7 @@ async function request(req: NextRequest) {
   );
 
   const fetchUrl = `${baseUrl}${path}`;
+  console.log("[Iflytek Url]", fetchUrl);
   const fetchOptions: RequestInit = {
     headers: {
       "Content-Type": "application/json",

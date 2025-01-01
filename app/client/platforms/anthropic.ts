@@ -1,4 +1,4 @@
-import { Anthropic, ApiPath } from "@/app/constant";
+import { Anthropic, ApiPath, NEXT_BASE_PATH } from "@/app/constant";
 import { ChatOptions, getHeaders, LLMApi, SpeechOptions } from "../api";
 import {
   useAccessStore,
@@ -12,7 +12,6 @@ import { preProcessImageContent, stream } from "@/app/utils/chat";
 import { cloudflareAIGatewayUrl } from "@/app/utils/cloudflare";
 import { RequestPayload } from "./openai";
 import { fetch } from "@/app/utils/stream";
-import { getClientConfig } from "@/app/config/client";
 
 export type MultiBlockContent = {
   type: "image" | "text";
@@ -392,7 +391,7 @@ export class ClaudeApi implements LLMApi {
 
     if (
       !baseUrl.startsWith("http") &&
-      !baseUrl.startsWith(`${getClientConfig()?.nextBasePath}/api`)
+      !baseUrl.startsWith(`${NEXT_BASE_PATH}/api`)
     ) {
       baseUrl = "https://" + baseUrl;
     }

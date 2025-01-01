@@ -6,5 +6,6 @@ cd "$(dirname "$0")"
 echo "node: $(node --version)"
 echo "pm2: $(pm2 --version)"
 
+cp ../.env ../dist/
 pm2 delete ./ecosystem.config.js
 pm2 start ./ecosystem.config.js

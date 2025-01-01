@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "./auth";
 import { getServerSideConfig } from "@/app/config/server";
-import { ApiPath, GEMINI_BASE_URL, ModelProvider } from "@/app/constant";
+import {
+  ApiPath,
+  GEMINI_BASE_URL,
+  ModelProvider,
+  NEXT_BASE_PATH,
+} from "@/app/constant";
 import { prettyObject } from "@/app/utils/format";
 
 const serverConfig = getServerSideConfig();
@@ -73,7 +78,10 @@ async function request(req: NextRequest, apiKey: string) {
 
   let baseUrl = serverConfig.googleUrl || GEMINI_BASE_URL;
 
-  let path = `${req.nextUrl.pathname}`.replaceAll(ApiPath.Google, "");
+  let path = `${NEXT_BASE_PATH}${req.nextUrl.pathname}`.replaceAll(
+    ApiPath.Google,
+    "",
+  );
 
   if (!baseUrl.startsWith("http")) {
     baseUrl = `https://${baseUrl}`;
@@ -83,8 +91,8 @@ async function request(req: NextRequest, apiKey: string) {
     baseUrl = baseUrl.slice(0, -1);
   }
 
-  console.log("[Proxy] ", path);
-  console.log("[Base Url]", baseUrl);
+  console.log("[Google Proxy] ", path);
+  console.log("[Google Base Url]", baseUrl);
 
   const timeoutId = setTimeout(
     () => {
@@ -96,7 +104,7 @@ async function request(req: NextRequest, apiKey: string) {
     req?.nextUrl?.searchParams?.get("alt") === "sse" ? "?alt=sse" : ""
   }`;
 
-  console.log("[Fetch Url] ", fetchUrl);
+  console.log("[Google Fetch Url] ", fetchUrl);
   const fetchOptions: RequestInit = {
     headers: {
       "Content-Type": "application/json",

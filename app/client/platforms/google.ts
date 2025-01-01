@@ -1,4 +1,9 @@
-import { ApiPath, Google, REQUEST_TIMEOUT_MS } from "@/app/constant";
+import {
+  ApiPath,
+  Google,
+  NEXT_BASE_PATH,
+  REQUEST_TIMEOUT_MS,
+} from "@/app/constant";
 import {
   ChatOptions,
   getHeaders,
@@ -25,7 +30,6 @@ import { preProcessImageContent } from "@/app/utils/chat";
 import { nanoid } from "nanoid";
 import { RequestPayload } from "./openai";
 import { fetch } from "@/app/utils/stream";
-import { getClientConfig } from "@/app/config/client";
 
 export class GeminiProApi implements LLMApi {
   path(path: string, shouldStream = false): string {
@@ -43,7 +47,7 @@ export class GeminiProApi implements LLMApi {
       baseUrl = baseUrl.slice(0, baseUrl.length - 1);
     }
     if (baseUrl.startsWith("/api/")) {
-      baseUrl = `${getClientConfig()?.nextBasePath}${baseUrl}`;
+      baseUrl = `${NEXT_BASE_PATH}${baseUrl}`;
     }
     if (!baseUrl.startsWith("http") && !baseUrl.startsWith(ApiPath.Google)) {
       baseUrl = "https://" + baseUrl;

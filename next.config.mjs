@@ -6,13 +6,13 @@ console.log("[Next] build mode: ", mode);
 const disableChunk = !!process.env.DISABLE_CHUNK || mode === "export";
 console.log("[Next] build with chunk: ", !disableChunk);
 
-const nextBasePath = process.env.NEXT_BASE_PATH || "";
-console.log("[Next] build nextBasePath: ", nextBasePath);
+const NEXT_BASE_PATH = "/chat";
+console.log("[Next] build nextBasePath: ", NEXT_BASE_PATH);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // https://nextjscn.org/docs/app/api-reference/next-config-js/basePath
-  basePath: nextBasePath,
+  basePath: NEXT_BASE_PATH,
   cleanDistDir: true,
   webpack(config) {
     config.module.rules.push({
@@ -62,7 +62,7 @@ if (mode !== "export") {
   nextConfig.headers = async () => {
     return [
       {
-        source: `${nextBasePath}/api/:path*`,
+        source: `${NEXT_BASE_PATH}/api/:path*`,
         headers: CorsHeaders,
       },
     ];

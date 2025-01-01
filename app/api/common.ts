@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSideConfig } from "../config/server";
-import { OPENAI_BASE_URL, ServiceProvider } from "../constant";
+import {
+  ApiPath,
+  NEXT_BASE_PATH,
+  OPENAI_BASE_URL,
+  ServiceProvider,
+} from "../constant";
 import { cloudflareAIGatewayUrl } from "../utils/cloudflare";
 import { getModelProvider, isModelAvailableInServer } from "../utils/model";
 
@@ -29,22 +34,14 @@ export async function requestOpenai(req: NextRequest) {
 
   console.log("[requestOpenai] req.nextUrl.pathname:", req.nextUrl.pathname);
 
-  // 这里 req.nextUrl.pathname 的值已经是 去除 nextBasePath 后的，所以不需要做修改
-  let path = `${req.nextUrl.pathname}`.replaceAll("/api/openai/", "");
+  // 这里 req.nextUrl.pathname 的值已经是 去除 nextBasePath 后的
+  let path = `${NEXT_BASE_PATH}${req.nextUrl.pathname}`.replaceAll(
+    `${ApiPath.OpenAI}/`,
+    "",
+  );
 
   let baseUrl =
     (isAzure ? serverConfig.azureUrl : serverConfig.baseUrl) || OPENAI_BASE_URL;
-
-  if (!baseUrl.startsWith("http")) {
-    baseUrl = `https://${baseUrl}`;
-  }
-
-  if (baseUrl.endsWith("/")) {
-    baseUrl = baseUrl.slice(0, -1);
-  }
-
-  console.log("[requestOpenai] [Proxy] ", path);
-  console.log("[requestOpenai] [Base Url]", baseUrl);
 
   const timeoutId = setTimeout(
     () => {
@@ -58,8 +55,8 @@ export async function requestOpenai(req: NextRequest) {
       req?.nextUrl?.searchParams?.get("api-version") ||
       serverConfig.azureApiVersion;
     baseUrl = baseUrl.split("/deployments").shift() as string;
-    path = `${req.nextUrl.pathname.replaceAll(
-      "/api/azure/",
+    path = `${NEXT_BASE_PATH}${req.nextUrl.pathname.replaceAll(
+      `${ApiPath.Azure}/`,
       "",
     )}?api-version=${azureApiVersion}`;
 
@@ -90,6 +87,21 @@ export async function requestOpenai(req: NextRequest) {
       }
     }
   }
+
+  if (!baseUrl.startsWith("http")) {
+    baseUrl = `https://${baseUrl}`;
+  }
+
+  if (baseUrl.endsWith("/")) {
+    baseUrl = baseUrl.slice(0, -1);
+  }
+
+  if (path.startsWith("/")) {
+    baseUrl = baseUrl.slice(1);
+  }
+
+  console.log("[requestOpenai] [Proxy] ", path);
+  console.log("[requestOpenai] [Base Url]", baseUrl);
 
   const fetchUrl = cloudflareAIGatewayUrl(`${baseUrl}/${path}`);
   console.log("[requestOpenai] fetchUrl: ", fetchUrl);

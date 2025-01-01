@@ -4,6 +4,7 @@ import {
   ApiPath,
   ModelProvider,
   ServiceProvider,
+  NEXT_BASE_PATH,
 } from "@/app/constant";
 import { prettyObject } from "@/app/utils/format";
 import { NextRequest, NextResponse } from "next/server";
@@ -41,7 +42,10 @@ export async function handle(
 async function request(req: NextRequest) {
   const controller = new AbortController();
 
-  let path = `${req.nextUrl.pathname}`.replaceAll(ApiPath.ByteDance, "");
+  let path = `${NEXT_BASE_PATH}${req.nextUrl.pathname}`.replaceAll(
+    ApiPath.ByteDance,
+    "",
+  );
 
   let baseUrl = serverConfig.bytedanceUrl || BYTEDANCE_BASE_URL;
 
@@ -53,8 +57,8 @@ async function request(req: NextRequest) {
     baseUrl = baseUrl.slice(0, -1);
   }
 
-  console.log("[Proxy] ", path);
-  console.log("[Base Url]", baseUrl);
+  console.log("[Bytedance Proxy] ", path);
+  console.log("[Bytedance Base Url]", baseUrl);
 
   const timeoutId = setTimeout(
     () => {
@@ -64,6 +68,7 @@ async function request(req: NextRequest) {
   );
 
   const fetchUrl = `${baseUrl}${path}`;
+  console.log("[Bytedance Url]", fetchUrl);
 
   const fetchOptions: RequestInit = {
     headers: {

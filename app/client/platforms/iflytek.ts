@@ -1,5 +1,10 @@
 "use client";
-import { ApiPath, Iflytek, REQUEST_TIMEOUT_MS } from "@/app/constant";
+import {
+  ApiPath,
+  Iflytek,
+  NEXT_BASE_PATH,
+  REQUEST_TIMEOUT_MS,
+} from "@/app/constant";
 import { useAccessStore, useAppConfig, useChatStore } from "@/app/store";
 
 import {
@@ -19,7 +24,6 @@ import { getMessageTextContent } from "@/app/utils";
 import { fetch } from "@/app/utils/stream";
 
 import { RequestPayload } from "./openai";
-import { getClientConfig } from "@/app/config/client";
 
 export class SparkApi implements LLMApi {
   private disableListModels = true;
@@ -42,7 +46,7 @@ export class SparkApi implements LLMApi {
       baseUrl = baseUrl.slice(0, baseUrl.length - 1);
     }
     if (baseUrl.startsWith("/api/")) {
-      baseUrl = `${getClientConfig()?.nextBasePath}${baseUrl}`;
+      baseUrl = `${NEXT_BASE_PATH}${baseUrl}`;
     }
     if (!baseUrl.startsWith("http") && !baseUrl.startsWith(ApiPath.Iflytek)) {
       baseUrl = "https://" + baseUrl;

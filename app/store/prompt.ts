@@ -1,9 +1,8 @@
 import Fuse from "fuse.js";
 import { nanoid } from "nanoid";
-import { StoreKey } from "../constant";
+import { NEXT_BASE_PATH, StoreKey } from "../constant";
 import { getLang } from "../locales";
 import { createPersistStore } from "../utils/store";
-import { getClientConfig } from "../config/client";
 
 export interface Prompt {
   id: string;
@@ -153,7 +152,7 @@ export const usePromptStore = createPersistStore(
         return;
       }
 
-      const PROMPT_URL = `${getClientConfig()?.nextBasePath}/prompts.json`;
+      const PROMPT_URL = `${NEXT_BASE_PATH}/prompts.json`;
 
       type PromptList = Array<[string, string]>;
 

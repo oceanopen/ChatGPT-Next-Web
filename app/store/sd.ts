@@ -80,6 +80,7 @@ export const useSdStore = createPersistStore<
           Authorization: bearerToken,
         };
         const path = `${prefix}/${Stability.GeneratePath}/${data.model}`;
+        console.log("[sd] stabilityRequestCall, path: ", path);
         const formData = new FormData();
         for (let paramsKey in data.params) {
           formData.append(paramsKey, data.params[paramsKey]);
