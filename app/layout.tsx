@@ -45,6 +45,7 @@ export default function RootLayout({
           href={`${NEXT_BASE_PATH}/site.webmanifest`}
           crossOrigin="use-credentials"
         ></link>
+        <link rel="shortcut icon" href={`${NEXT_BASE_PATH}/favicon.ico`} />
         <script
           src={`${NEXT_BASE_PATH}/serviceWorkerRegister.js`}
           defer
