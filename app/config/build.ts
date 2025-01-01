@@ -9,7 +9,6 @@ export const getBuildConfig = () => {
   }
 
   const nextBuildMode = process.env.NEXT_BUILD_MODE ?? "standalone";
-  const nextBasePath = process.env.NEXT_BASE_PATH ?? "";
   const version = "v" + packageJson.version;
 
   const commitInfo = (() => {
@@ -38,7 +37,6 @@ export const getBuildConfig = () => {
     version,
     ...commitInfo,
     nextBuildMode,
-    nextBasePath,
     template: process.env.DEFAULT_INPUT_TEMPLATE ?? DEFAULT_INPUT_TEMPLATE,
     visionModels: process.env.VISION_MODELS || "",
   };
