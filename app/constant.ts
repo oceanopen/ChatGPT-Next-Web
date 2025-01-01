@@ -86,15 +86,15 @@ export enum FileName {
 }
 
 export enum StoreKey {
-  Chat = "chat-next-web-store",
-  Plugin = "chat-next-web-plugin",
-  Access = "access-control",
-  Config = "app-config",
-  Mask = "mask-store",
-  Prompt = "prompt-store",
-  Update = "chat-update",
-  Sync = "sync",
-  SdList = "sd-list",
+  Chat = "oceanopen-chat-next-web-store",
+  Plugin = "oceanopen-chat-next-web-plugin",
+  Access = "oceanopen-access-control",
+  Config = "oceanopen-app-config",
+  Mask = "oceanopen-mask-store",
+  Prompt = "oceanopen-prompt-store",
+  Update = "oceanopen-chat-update",
+  Sync = "oceanopen-sync",
+  SdList = "oceanopen-sd-list",
 }
 
 export const DEFAULT_SIDEBAR_WIDTH = 300;
@@ -102,7 +102,7 @@ export const MAX_SIDEBAR_WIDTH = 500;
 export const MIN_SIDEBAR_WIDTH = 230;
 export const NARROW_SIDEBAR_WIDTH = 100;
 
-export const ACCESS_CODE_PREFIX = "nk-";
+export const ACCESS_CODE_PREFIX = "oceanopen-";
 
 export const LAST_INPUT_KEY = "last-input";
 export const UNFINISHED_INPUT = (id: string) => "unfinished-input-" + id;

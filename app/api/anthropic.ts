@@ -5,6 +5,7 @@ import {
   ApiPath,
   ServiceProvider,
   ModelProvider,
+  NEXT_BASE_PATH,
 } from "@/app/constant";
 import { prettyObject } from "@/app/utils/format";
 import { NextRequest, NextResponse } from "next/server";
@@ -67,7 +68,10 @@ async function request(req: NextRequest) {
     serverConfig.anthropicApiKey ||
     "";
 
-  let path = `${req.nextUrl.pathname}`.replaceAll(ApiPath.Anthropic, "");
+  let path = `${NEXT_BASE_PATH}${req.nextUrl.pathname}`.replaceAll(
+    ApiPath.Anthropic,
+    "",
+  );
 
   let baseUrl =
     serverConfig.anthropicUrl || serverConfig.baseUrl || ANTHROPIC_BASE_URL;
@@ -80,8 +84,8 @@ async function request(req: NextRequest) {
     baseUrl = baseUrl.slice(0, -1);
   }
 
-  console.log("[Proxy] ", path);
-  console.log("[Base Url]", baseUrl);
+  console.log("[Anthropic Proxy] ", path);
+  console.log("[Anthropic Base Url]", baseUrl);
 
   const timeoutId = setTimeout(
     () => {
@@ -92,6 +96,7 @@ async function request(req: NextRequest) {
 
   // try rebuild url, when using cloudflare ai gateway in server
   const fetchUrl = cloudflareAIGatewayUrl(`${baseUrl}${path}`);
+  console.log("[Anthropic Url]", fetchUrl);
 
   const fetchOptions: RequestInit = {
     headers: {

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSideConfig } from "@/app/config/server";
 import {
+  ApiPath,
   ModelProvider,
   NEXT_BASE_PATH,
   STABILITY_BASE_URL,
@@ -23,6 +24,14 @@ export async function handle(
 
   let baseUrl = serverConfig.stabilityUrl || STABILITY_BASE_URL;
 
+  console.log("[Stability Proxy] req.nextUrl.pathname:", req.nextUrl.pathname);
+  console.log("[Stability Proxy] ApiPath.Stability:", ApiPath.Stability);
+
+  let path = `${NEXT_BASE_PATH}${req.nextUrl.pathname}`.replaceAll(
+    ApiPath.Stability,
+    "",
+  );
+
   if (!baseUrl.startsWith("http")) {
     baseUrl = `https://${baseUrl}`;
   }
@@ -31,12 +40,7 @@ export async function handle(
     baseUrl = baseUrl.slice(0, -1);
   }
 
-  let path = `${req.nextUrl.pathname}`.replaceAll(
-    `${NEXT_BASE_PATH}/api/stability/`,
-    "",
-  );
-
-  console.log("[Stability Proxy] ", path);
+  console.log("[Stability Proxy] path:", path);
   console.log("[Stability Base Url]", baseUrl);
 
   const timeoutId = setTimeout(
@@ -71,8 +75,8 @@ export async function handle(
     );
   }
 
-  const fetchUrl = `${baseUrl}/${path}`;
-  console.log("[Stability Url] ", fetchUrl);
+  const fetchUrl = `${baseUrl}${path}`;
+  console.log("[Stability Url]", fetchUrl);
   const fetchOptions: RequestInit = {
     headers: {
       "Content-Type": req.headers.get("Content-Type") || "multipart/form-data",
