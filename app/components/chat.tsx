@@ -1659,7 +1659,7 @@ function _Chat() {
                   icon={<RenameIcon />}
                   bordered
                   title={Locale.Chat.EditMessage.Title}
-                  aria={Locale.Chat.EditMessage.Title}
+                  ariaLabel={Locale.Chat.EditMessage.Title}
                   onClick={() => setIsEditingMessage(true)}
                 />
               </div>
@@ -1680,7 +1680,7 @@ function _Chat() {
                   icon={config.tightBorder ? <MinIcon /> : <MaxIcon />}
                   bordered
                   title={Locale.Chat.Actions.FullScreen}
-                  aria={Locale.Chat.Actions.FullScreen}
+                  ariaLabel={Locale.Chat.Actions.FullScreen}
                   onClick={() => {
                     config.update(
                       (config) => (config.tightBorder = !config.tightBorder),
@@ -1736,7 +1736,7 @@ function _Chat() {
                             <div className={styles["chat-message-edit"]}>
                               <IconButton
                                 icon={<EditIcon />}
-                                aria={Locale.Chat.Actions.Edit}
+                                ariaLabel={Locale.Chat.Actions.Edit}
                                 onClick={async () => {
                                   const newMessage = await showPrompt(
                                     Locale.Chat.Actions.Edit,
