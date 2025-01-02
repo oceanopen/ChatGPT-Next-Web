@@ -60,9 +60,14 @@ docker ps -a
 
 - [ChatGPT Proxy](https://bewildcard.com/api)
 - [ChatGPT API Proxy](https://2233.ai/api)
+
 - [Github ChatGPT-Next-Web](https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web)
 - [GitHub Proxy](https://ghgo.xyz/)
+
 - [Nvm Install](https://github.com/nvm-sh/nvm)
 - [pm2 Quick Start](https://pm2.keymetrics.io/docs/usage/quick-start/)
 - [pm2-logrotate](https://github.com/keymetrics/pm2-logrotate#configure)
 - [Next.js Docs](https://nextjs.org/docs)
+
+- [Stability AI - Developer Platform](https://platform.stability.ai/docs/getting-started)
+- [OpenAI Platform Docs](https://platform.openai.com/docs/concepts)
