@@ -315,111 +315,107 @@ export const VISION_MODEL_REGEXES = [
 
 export const EXCLUDE_VISION_MODEL_REGEXES = [/claude-3-5-haiku-20241022/];
 
+// https://platform.openai.com/docs/models#current-model-aliases
 const openaiModels = [
   "gpt-3.5-turbo",
-  "gpt-3.5-turbo-1106",
-  "gpt-3.5-turbo-0125",
-  "gpt-4",
-  "gpt-4-0613",
-  "gpt-4-32k",
-  "gpt-4-32k-0613",
-  "gpt-4-turbo",
-  "gpt-4-turbo-preview",
   "gpt-4o",
-  "gpt-4o-2024-05-13",
-  "gpt-4o-2024-08-06",
-  "gpt-4o-2024-11-20",
   "chatgpt-4o-latest",
   "gpt-4o-mini",
-  "gpt-4o-mini-2024-07-18",
-  "gpt-4-vision-preview",
-  "gpt-4-turbo-2024-04-09",
-  "gpt-4-1106-preview",
-  "dall-e-3",
+  "o1",
   "o1-mini",
-  "o1-preview",
+  "gpt-4o-realtime-preview",
+  "gpt-4o-mini-realtime-preview",
+  "gpt-4o-audio-preview",
+  "gpt-4",
+  "gpt-4-turbo",
+  "gpt-4-turbo-preview",
 ];
 
+// https://ai.google/get-started/our-models/
+// https://aistudio.google.com/prompts/new_chat
+// https://gemini.google.com/app/559a3f17e3924258
+// https://deepmind.google/technologies/imagen-3/
 const googleModels = [
-  "gemini-1.0-pro", // Deprecated on 2/15/2025
-  "gemini-1.5-pro-latest",
   "gemini-1.5-pro",
-  "gemini-1.5-pro-002",
-  "gemini-1.5-pro-exp-0827",
-  "gemini-1.5-flash-latest",
-  "gemini-1.5-flash-8b-latest",
   "gemini-1.5-flash",
   "gemini-1.5-flash-8b",
-  "gemini-1.5-flash-002",
-  "gemini-1.5-flash-exp-0827",
-  "learnlm-1.5-pro-experimental",
-  "gemini-exp-1114",
-  "gemini-exp-1121",
-  "gemini-exp-1206",
   "gemini-2.0-flash-exp",
+  "gemini-exp-1206",
   "gemini-2.0-flash-thinking-exp-1219",
+  "gemma-2-2b-it",
+  "gemma-2-9b-it",
+  "gemma-2-27b-it",
 ];
 
+// https://docs.anthropic.com/en/docs/about-claude/models
 const anthropicModels = [
   "claude-instant-1.2",
   "claude-2.0",
   "claude-2.1",
-  "claude-3-sonnet-20240229",
-  "claude-3-opus-20240229",
-  "claude-3-opus-latest",
-  "claude-3-haiku-20240307",
-  "claude-3-5-haiku-20241022",
   "claude-3-5-haiku-latest",
-  "claude-3-5-sonnet-20240620",
-  "claude-3-5-sonnet-20241022",
   "claude-3-5-sonnet-latest",
+  "claude-3-opus-latest",
 ];
 
+// https://console.bce.baidu.com/qianfan/modelcenter/model/buildIn/list
 const baiduModels = [
-  "ernie-4.0-turbo-8k",
-  "ernie-4.0-8k",
-  "ernie-4.0-8k-preview",
-  "ernie-4.0-8k-preview-0518",
-  "ernie-4.0-8k-latest",
-  "ernie-3.5-8k",
-  "ernie-3.5-8k-0205",
-  "ernie-speed-128k",
-  "ernie-speed-8k",
-  "ernie-lite-8k",
-  "ernie-tiny-8k",
+  "ERNIE-4.0-Turbo-8K",
+  "ERNIE-4.0-Turbo-8K-Latest",
+  "ERNIE-4.0-Turbo-128K",
+  "ERNIE-4.0-8K",
+  "ERNIE-4.0-8K-Latest",
+  "ERNIE-3.5-8K",
+  "ERNIE-3.5-128K",
+  "ERNIE-Speed-8K",
+  "ERNIE-Speed-128K",
+  "ERNIE-Speed-Pro-128K",
+  "ERNIE-Lite-8K",
+  "ERNIE-Lite-Pro-128K",
+  "ERNIE-Tiny-8K",
 ];
 
+// https://www.volcengine.com/product/doubao
 const bytedanceModels = [
-  "Doubao-lite-4k",
-  "Doubao-lite-32k",
-  "Doubao-lite-128k",
-  "Doubao-pro-4k",
-  "Doubao-pro-32k",
+  "Doubao-pro-256k",
   "Doubao-pro-128k",
+  "Doubao-pro-32k",
+  "Doubao-pro-4k",
+  "Doubao-lite-128k",
+  "Doubao-lite-32k",
+  "Doubao-vision-pro-32k",
+  "Doubao-vision-lite-32k",
 ];
 
+// https://www.alibabacloud.com/help/zh/model-studio/getting-started/models
 const alibabaModes = [
   "qwen-turbo",
   "qwen-plus",
   "qwen-max",
-  "qwen-max-0428",
-  "qwen-max-0403",
-  "qwen-max-0107",
-  "qwen-max-longcontext",
+  "qwen-vl-plus",
+  "qwen-vl-max",
+  "qwen2-72b-instruct",
+  "qwen2-7b-instruct",
+  "text-embedding-v3",
 ];
 
+// https://cloud.tencent.com/product/hunyuan
 const tencentModels = [
-  "hunyuan-pro",
+  "hunyuan-turbo-latest",
+  "hunyuan-turbo",
+  "hunyuan-large-longcontext",
+  "hunyuan-large",
   "hunyuan-standard",
   "hunyuan-lite",
-  "hunyuan-role",
-  "hunyuan-functioncall",
+  "hunyuan-translation-lite",
   "hunyuan-code",
-  "hunyuan-vision",
+  "hunyuan-functioncall",
+  "hunyuan-role",
 ];
 
+// https://platform.moonshot.cn/docs/pricing/chat
 const moonshotModes = ["moonshot-v1-8k", "moonshot-v1-32k", "moonshot-v1-128k"];
 
+// https://xinghuo.xfyun.cn/sparkapi
 const iflytekModels = [
   "general",
   "generalv3",
@@ -428,14 +424,13 @@ const iflytekModels = [
   "4.0Ultra",
 ];
 
-const xAIModes = ["grok-beta"];
+// https://docs.x.ai/docs/models
+const xAIModes = ["grok-beta", "grok-vision-beta"];
 
+// https://bigmodel.cn/console/modelcenter/square
 const chatglmModels = [
   "glm-4-plus",
-  "glm-4-0520",
-  "glm-4",
   "glm-4-air",
-  "glm-4-airx",
   "glm-4-long",
   "glm-4-flashx",
   "glm-4-flash",
