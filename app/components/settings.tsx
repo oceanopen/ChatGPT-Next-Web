@@ -67,7 +67,6 @@ import {
   SlotID,
   UPDATE_URL,
   Stability,
-  Iflytek,
   ChatGLM,
 } from "../constant";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
@@ -1283,63 +1282,6 @@ export function Settings() {
       </ListItem>
     </>
   );
-  const lflytekConfigComponent = accessStore.provider ===
-    ServiceProvider.Iflytek && (
-    <>
-      <ListItem
-        title={Locale.Settings.Access.Iflytek.Endpoint.Title}
-        subTitle={
-          Locale.Settings.Access.Iflytek.Endpoint.SubTitle +
-          Iflytek.ExampleEndpoint
-        }
-      >
-        <input
-          aria-label={Locale.Settings.Access.Iflytek.Endpoint.Title}
-          type="text"
-          value={accessStore.iflytekUrl}
-          placeholder={Iflytek.ExampleEndpoint}
-          onChange={(e) =>
-            accessStore.update(
-              (access) => (access.iflytekUrl = e.currentTarget.value),
-            )
-          }
-        ></input>
-      </ListItem>
-      <ListItem
-        title={Locale.Settings.Access.Iflytek.ApiKey.Title}
-        subTitle={Locale.Settings.Access.Iflytek.ApiKey.SubTitle}
-      >
-        <PasswordInput
-          aria-label={Locale.Settings.Access.Iflytek.ApiKey.Title}
-          value={accessStore.iflytekApiKey}
-          type="text"
-          placeholder={Locale.Settings.Access.Iflytek.ApiKey.Placeholder}
-          onChange={(e) => {
-            accessStore.update(
-              (access) => (access.iflytekApiKey = e.currentTarget.value),
-            );
-          }}
-        />
-      </ListItem>
-
-      <ListItem
-        title={Locale.Settings.Access.Iflytek.ApiSecret.Title}
-        subTitle={Locale.Settings.Access.Iflytek.ApiSecret.SubTitle}
-      >
-        <PasswordInput
-          aria-label={Locale.Settings.Access.Iflytek.ApiSecret.Title}
-          value={accessStore.iflytekApiSecret}
-          type="text"
-          placeholder={Locale.Settings.Access.Iflytek.ApiSecret.Placeholder}
-          onChange={(e) => {
-            accessStore.update(
-              (access) => (access.iflytekApiSecret = e.currentTarget.value),
-            );
-          }}
-        />
-      </ListItem>
-    </>
-  );
 
   return (
     <ErrorBoundary>
@@ -1693,7 +1635,6 @@ export function Settings() {
                   {tencentConfigComponent}
                   {moonshotConfigComponent}
                   {stabilityConfigComponent}
-                  {lflytekConfigComponent}
                   {XAIConfigComponent}
                   {chatglmConfigComponent}
                 </>

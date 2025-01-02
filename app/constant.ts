@@ -34,7 +34,6 @@ export const ALIBABA_BASE_URL = "https://dashscope.aliyuncs.com/api/";
 export const TENCENT_BASE_URL = "https://hunyuan.tencentcloudapi.com";
 
 export const MOONSHOT_BASE_URL = "https://api.moonshot.cn";
-export const IFLYTEK_BASE_URL = "https://spark-api-open.xf-yun.com";
 
 export const XAI_BASE_URL = "https://api.x.ai";
 
@@ -68,7 +67,6 @@ export const ApiPath = {
   Alibaba: `${NEXT_BASE_PATH}/api/alibaba`,
   Tencent: `${NEXT_BASE_PATH}/api/tencent`,
   Moonshot: `${NEXT_BASE_PATH}/api/moonshot`,
-  Iflytek: `${NEXT_BASE_PATH}/api/iflytek`,
   Stability: `${NEXT_BASE_PATH}/api/stability`,
   Artifacts: `${NEXT_BASE_PATH}/api/artifacts`,
   XAI: `${NEXT_BASE_PATH}/api/xai`,
@@ -124,7 +122,6 @@ export enum ServiceProvider {
   Tencent = "Tencent",
   Moonshot = "Moonshot",
   Stability = "Stability",
-  Iflytek = "Iflytek",
   XAI = "XAI",
   ChatGLM = "ChatGLM",
 }
@@ -148,7 +145,6 @@ export enum ModelProvider {
   Qwen = "Qwen",
   Hunyuan = "Hunyuan",
   Moonshot = "Moonshot",
-  Iflytek = "Iflytek",
   XAI = "XAI",
   ChatGLM = "ChatGLM",
 }
@@ -225,11 +221,6 @@ export const Tencent = {
 
 export const Moonshot = {
   ExampleEndpoint: MOONSHOT_BASE_URL,
-  ChatPath: "v1/chat/completions",
-};
-
-export const Iflytek = {
-  ExampleEndpoint: IFLYTEK_BASE_URL,
   ChatPath: "v1/chat/completions",
 };
 
@@ -415,15 +406,6 @@ const tencentModels = [
 // https://platform.moonshot.cn/docs/pricing/chat
 const moonshotModes = ["moonshot-v1-8k", "moonshot-v1-32k", "moonshot-v1-128k"];
 
-// https://xinghuo.xfyun.cn/sparkapi
-const iflytekModels = [
-  "general",
-  "generalv3",
-  "pro-128k",
-  "generalv3.5",
-  "4.0Ultra",
-];
-
 // https://docs.x.ai/docs/models
 const xAIModes = ["grok-beta", "grok-vision-beta"];
 
@@ -535,17 +517,6 @@ export const DEFAULT_MODELS = [
       providerName: "Moonshot",
       providerType: "moonshot",
       sorted: 9,
-    },
-  })),
-  ...iflytekModels.map((name) => ({
-    name,
-    available: true,
-    sorted: seq++,
-    provider: {
-      id: "iflytek",
-      providerName: "Iflytek",
-      providerType: "iflytek",
-      sorted: 10,
     },
   })),
   ...xAIModes.map((name) => ({

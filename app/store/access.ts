@@ -32,8 +32,6 @@ const DEFAULT_MOONSHOT_URL = ApiPath.Moonshot as string;
 
 const DEFAULT_STABILITY_URL = ApiPath.Stability as string;
 
-const DEFAULT_IFLYTEK_URL = ApiPath.Iflytek as string;
-
 const DEFAULT_XAI_URL = ApiPath.XAI as string;
 
 const DEFAULT_CHATGLM_URL = ApiPath.ChatGLM as string;
@@ -89,11 +87,6 @@ const DEFAULT_ACCESS_STATE = {
   tencentUrl: DEFAULT_TENCENT_URL,
   tencentSecretKey: "",
   tencentSecretId: "",
-
-  // iflytek
-  iflytekUrl: DEFAULT_IFLYTEK_URL,
-  iflytekApiKey: "",
-  iflytekApiSecret: "",
 
   // xai
   xaiUrl: DEFAULT_XAI_URL,
@@ -167,9 +160,6 @@ export const useAccessStore = createPersistStore(
     isValidMoonshot() {
       return ensure(get(), ["moonshotApiKey"]);
     },
-    isValidIflytek() {
-      return ensure(get(), ["iflytekApiKey"]);
-    },
 
     isValidXAI() {
       return ensure(get(), ["xaiApiKey"]);
@@ -193,7 +183,6 @@ export const useAccessStore = createPersistStore(
         this.isValidAlibaba() ||
         this.isValidTencent() ||
         this.isValidMoonshot() ||
-        this.isValidIflytek() ||
         this.isValidXAI() ||
         this.isValidChatGLM() ||
         !this.enabledAccessControl() ||

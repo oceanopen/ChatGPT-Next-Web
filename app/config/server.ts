@@ -64,11 +64,6 @@ declare global {
       MOONSHOT_URL?: string;
       MOONSHOT_API_KEY?: string;
 
-      // iflytek only
-      IFLYTEK_URL?: string;
-      IFLYTEK_API_KEY?: string;
-      IFLYTEK_API_SECRET?: string;
-
       // xai only
       XAI_URL?: string;
       XAI_API_KEY?: string;
@@ -154,7 +149,6 @@ export const getServerSideConfig = () => {
   const isBytedance = !!process.env.BYTEDANCE_API_KEY;
   const isAlibaba = !!process.env.ALIBABA_API_KEY;
   const isMoonshot = !!process.env.MOONSHOT_API_KEY;
-  const isIflytek = !!process.env.IFLYTEK_API_KEY;
   const isXAI = !!process.env.XAI_API_KEY;
   const isChatGLM = !!process.env.CHATGLM_API_KEY;
   // const apiKeyEnvVar = process.env.OPENAI_API_KEY ?? "";
@@ -213,11 +207,6 @@ export const getServerSideConfig = () => {
     isMoonshot,
     moonshotUrl: process.env.MOONSHOT_URL,
     moonshotApiKey: getApiKey(process.env.MOONSHOT_API_KEY),
-
-    isIflytek,
-    iflytekUrl: process.env.IFLYTEK_URL,
-    iflytekApiKey: process.env.IFLYTEK_API_KEY,
-    iflytekApiSecret: process.env.IFLYTEK_API_SECRET,
 
     isXAI,
     xaiUrl: process.env.XAI_URL,
